@@ -1,0 +1,17 @@
+<% title "Organizations" %>
+
+<table>
+  <tr>
+    <th>Name</th>
+  </tr>
+  <% for organization in @organizations %>
+    <tr>
+      <td><%=h organization.name %></td>
+      <td><%= link_to "Show", organization %></td>
+      <td><%= link_to "Edit", edit_organization_path(organization) %></td>
+      <td><%= link_to "Destroy", organization, :confirm => '!!!!! Are you sure? All Projects and Users for this Organization will be deleted !!!', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Organization", new_organization_path %></p>

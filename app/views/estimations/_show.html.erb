@@ -1,0 +1,52 @@
+<!-- Estimation -->
+
+<% title "Estimation" %>
+
+<%= group_start('General Information') %>
+<%= show_field('Estimation Status', estimation.status_txt) %>
+<%= show_field('Task', estimation.task.name) %>
+<%= show_field('Task Estimation Type', estimation.task.estimation_type) %>
+<%= show_field('Estimator Name ', estimation.estimator.username+' estimated on '+estimation.estimation_date.to_s) %>
+<%= show_field('PM Comment', estimation.pm_comment) %>
+<%= show_field('Resource assigned', estimation.task.ressource.name) %>
+<%= show_field('Last Updated', estimation.updated_at) %>
+<%= show_field('Comment', estimation.comment) %>
+<%= group_end %>
+
+<div style="clear: both;"></div>
+
+
+<%= group_start('Basic Information') %>
+<%= show_field('BASELINE Planned Effort (hours)', d(estimation.baseline.eac_hours, 0)) %>
+<% link_to "Goto Baseline", task_baseline_path(@task, estimation.baseline) %>
+<%= show_field('Actual Hours', estimation.total_actual_hours) %>
+<%= group_end %>
+
+
+<%= group_start('Earned Value Analysis') %>
+<% if estimation.status!=:requested then %>
+    <%= show_field('EAC (hours)', "#{d(estimation.eac_hours, 2)} Sigma: #{d(estimation.get_sigma, 2)}") %>
+    <%= show_field('% Complete', d(estimation.pert_per_complete*100, 0)) %>
+    <%= show_field('EV (hours)', d(estimation.ev, 0)) %>
+    <%= show_field('ETC (hours)', d(estimation.get_etc, 0)) %>
+    <%= show_field('CPI', d(estimation.cpi, 2) ) %>
+    <%= show_field('PV (hours)', d(estimation.baseline.pv(estimation), 0)) %>
+    <%= show_field('Schedule-Dif', d(estimation.schedule_dif, 0) ) %>
+    <%= show_field('SPI', d(estimation.spi, 2) ) %>
+    <%= group_end %>
+
+<% else %>
+    <%= show_text("Estimation not estimated !!!") %>
+    <%= group_end %>
+<% end %>
+
+<% if @estimation_mode==:pert then %>
+    <div style="clear: both;">&nbsp;</div>
+    <%= group_start('Work Package Definition') %>    <%= group_end %>
+    <%= render :partial => 'estimations/wp_actuals_show', :locals => { :wp_actuals => estimation.wp_actuals } %>
+<% end %>
+
+<%= group_start('Effort') %><%= group_end %>
+<div id='works'>
+  <%= render :partial => 'work_actuals/show', :locals => { :estimation => estimation, :task => @task } %>
+</div>

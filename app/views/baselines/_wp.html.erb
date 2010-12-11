@@ -1,0 +1,11 @@
+<div class="wp">
+  <p>
+    <%= f.label :name, "WP:" %>
+    <%= f.text_field :name %>
+        <%= f.hidden_field :o_estimate %>
+        <%= f.hidden_field :m_estimate %>
+        <%= f.hidden_field :p_estimate %>    
+
+    <%= remove_link_unless_new_record(f) -%>
+  </p>
+</div>

@@ -1,0 +1,17 @@
+<%= javascript_include_tag :defaults %>
+
+<% title "Show and Design report: '#{@report.name }'" %>
+
+<%= menu_bar do |mb|
+        mb.menu_line "<<< Project", project_path(@project)
+        mb.menu_line "View all Reports ", project_reports_path(@project)
+
+end%>
+
+<%= show_text_yellow "Please note: If a Baseline is not estimated yet, baseline estimation will be used as EAC" %>
+
+<div id='budget_groups'>
+    <%= render :partial => "update_report", :locals => {:report => @report, :project => @project} %>
+</div>
+
+

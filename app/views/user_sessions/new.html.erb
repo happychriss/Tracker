@@ -1,0 +1,30 @@
+<!-- user_sessions/new.html.erb -->
+<% title "Please enter your username and password !!" %>
+<br/>
+<div id='signup_password'>
+
+  <%= semantic_form_for @user_session do |f| %>
+
+      <%= error_messages_for 'user_session' %>
+
+
+      <%= f.inputs do %>
+          <%= f.input :username, :hint => 'No spaces or special characters.', :required => true %>
+          <%= f.input :password, :required => true %>
+          <%= f.commit_button :label => ">>> Sign In" %>
+      <% end %>
+
+
+  <% end %>
+
+  <p>No account yet, register for TRACKER here: <%= link_to "Register", join_path %></p>
+</div>
+
+<div id='signup_info'>
+  <p style="font-weight:bold">TRACKER:Project Tracking and Cost Management</p>
+
+  <p>TRACKER combines proved Project Management tools like PERT Estimation and Earned Value Management to manage budget uncertainty.</p>
+  <p>More information is available at: <%=link_to "project-tracking.org", "http://project-tracking.org" %></p>
+</div>
+
+<div style="clear: both;">&nbsp;</div>

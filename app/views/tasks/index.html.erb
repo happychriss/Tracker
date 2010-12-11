@@ -1,0 +1,8 @@
+<% title "Tasks" %>
+
+
+
+ <%= render :partial => "list", :locals => { :tasks => @tasks } %>
+
+ 
+<p><%= link_to "New Task", new_project_task_path(@project) %></p>

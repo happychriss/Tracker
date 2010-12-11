@@ -1,0 +1,8 @@
+.DS_Store
+.idea
+log/*.log
+tmp/**/*
+config/database.yml
+db/*.sqlite3
+doc/api
+doc/app

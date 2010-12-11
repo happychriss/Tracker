@@ -1,0 +1,26 @@
+<% if task.cost(:estimation, :eac).to_i!=0 and task.cost(:baseline, :eac).to_i!=0 %>
+    <% if task.cost(:estimation, :eac) <= task.cost(:baseline, :eac) then %>
+
+        <%= sparkline_tag [task.cost(:estimation, :eac).to_i],
+                          :bad=>task.cost(:estimation, :eac_mean).to_i,
+                          :good => task.cost(:baseline, :eac).to_i,
+                          :type => 'bullet',
+                          :good_color => 'green',
+                          :bad_color =>'#B3D9FF',
+                          :bullet_color =>'#66B3FF' %>
+
+    <% else %>
+        <%= sparkline_tag [task.cost(:estimation, :eac_mean).to_i],
+                          :bad=>task.cost(:baseline, :eac).to_i,
+                          :bad_color =>'#B3D9FF',
+                          :good => task.cost(:estimation, :eac).to_i,
+                          :good_color => 'red',
+                          :target => task.cost(:baseline, :eac).to_i,
+                          :type => 'bullet',
+                          :bullet_color =>'#66B3FF',
+                          :line_color =>'black'
+
+        %>
+
+    <% end %>
+<% end %>

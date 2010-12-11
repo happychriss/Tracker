@@ -1,0 +1,13 @@
+<% title "New Invitation" %>
+
+<%= semantic_form_for @invitation do |f| %>
+
+<%= error_messages_for 'invitation' %>
+
+    <%= f.inputs do %>
+        <%= f.input :recipient_email,    :hint => 'We will not share your email address !!' , :required => true %>
+    <% end %>
+
+  <p><%= f.submit "Send Invitation" %></p>
+
+<% end %>

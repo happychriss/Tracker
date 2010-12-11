@@ -1,0 +1,38 @@
+<%= render :partial => 'create_task_info_box' %>
+
+
+<%= semantic_form_for [@project, @task] do |f| %>
+
+    <%= f.inputs do %>
+        <%= f.input :name %>
+        <%= f.input :description %>
+
+        <%= f.input :start,
+                    :label=>'Planned Work start date',
+                    :as => :calendar, :format => '%d %b %Y',
+                    :hint => 'If not known yet, can be added later. If you  play around, create in the past' %>
+
+        <%= f.input :stop,
+                    :label=>'Planned Work finish date',
+                    :as => :calendar, :format => '%d %b %Y',
+                    :hint => 'If not known yet, can be added later'  %>
+
+        <%= f.input :ressource,
+                    :collection => @project.ressources.find(:all, :order => :name),
+                    :required => true %>
+
+
+        <%= f.input :estimation_type,
+                    :collection => ['pert', 'linear'], :include_blank => false,
+                    :hint => 'changing this will only be effective after new baseline is requested, if unsure select PERT' %>
+
+        <%= f.input :pm_contingency,
+                    :label => 'Contingency',
+                    :as=>:select, :collection => ['normal', 'sigma_3'], :include_blank => false,
+                    :hint => 'changing this will only be effective after new baseline is requested' %>
+        <%= f.buttons :commit %>
+
+    <% end %>
+<% end %>
+
+

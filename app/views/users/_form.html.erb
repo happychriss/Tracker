@@ -1,0 +1,23 @@
+<!-- users/_form.html.erb -->
+<!-- STI with form_for http://stackoverflow.com/questions/604870/can-i-do-sti-and-still-use-polymorphic-path-helpers -->
+
+
+<%= semantic_form_for @user.becomes(User) do |f| %>
+
+    <%= f.inputs do %>
+<%= error_messages_for 'user' %>
+        <%= f.input :username %>
+        <% if is_admin? %>
+        <%= f.input :organization %>
+    <% end %>
+        <%= f.input :email %>
+        <%= f.input :password %>
+        <%= f.input :password_confirmation %>
+
+        <% if is_admin? %>
+            <%= f.input :is_admin, :label => 'Is Admin?' %>
+            <%= f.input :is_pm, :label => 'Is Project Manager?' %>            
+        <% end %>
+    <% end %>
+    <%= f.buttons %>
+<% end %>

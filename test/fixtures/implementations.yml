@@ -1,0 +1,13 @@
+one:
+  cost: 1
+  currency: 1
+  business_entitiy: MyString
+  category: MyString
+  type: MyString
+
+two:
+  cost: 1
+  currency: 1
+  business_entitiy: MyString
+  category: MyString
+  type: MyString

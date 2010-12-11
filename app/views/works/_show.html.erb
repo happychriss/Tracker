@@ -1,0 +1,24 @@
+<% baseline.works.each do |works| %>
+
+    <% if @month.nil? or (not @month.nil? and @month!=works.start_date.month) then %>
+        <div id="line_break">
+          <%= show_text_yellow(Date::MONTHNAMES[works.start_date.month]) %>
+        </div>
+    <% end %>
+
+
+
+    <div id='single_work'>
+
+      <%= "#{works.start_date.day}/#{works.start_date.month}" %>
+      <br/>
+
+      Plan: <%= d(works.workhours, 2) or '0' %> h
+
+
+      <br/>
+      <%= works.description or '-' %>
+    </div>
+    <% @month=works.start_date.month %>
+
+<% end %>

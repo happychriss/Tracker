@@ -1,0 +1,45 @@
+<%= form_for @project do |project_form| %>
+
+	<%= project_form.fields_for :task do |task_form| %>
+	
+		  <%= task.error_messages %>
+		  <p>
+		    <%= task_form.label :name %><br />
+		    <%= task_form.text_field :name %>
+		  </p>
+		  <p>
+		    <%= task_form.label :description %><br />
+		    <%= task_form.text_field :description %>
+		  </p>
+		  <p>
+		    <%= task_form.label :status %><br />
+		    <%= task_form.check_box :status %>
+		  </p>
+		  <p>
+		    <%= task_form.label :start %><br />
+		    <%= task_form.date_select :start %>
+		  </p>
+		  <p>
+		    <%= task_form.label :stop %><br />
+		    <%= task_form.date_select :stop %>
+		  </p>
+		  <p>
+		    <%= task_form.label :project_id %><br />
+		    <%= task_form.text_field :project_id %>
+		  </p>
+
+		  <p>
+		    <%= task_form.label :estimator_id %><br />
+		    <%= task_form.text_field :estimator_id %>
+		  </p>
+		
+		<% unless task_form.object.new_record? %>
+		      <%= task_form.check_box '_delete' %>
+		      <%= task_form.label '_delete', 'Remove' %>
+		 <% end %>
+			
+	<% end %>
+
+  <p><%= project_form.submit "Submit" %></p>
+
+<% end %>

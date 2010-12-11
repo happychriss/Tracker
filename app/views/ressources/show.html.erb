@@ -1,0 +1,19 @@
+<% title "Ressource: #{@ressource.name}" %>
+
+<%= menu_bar do |mb|
+        mb.menu_line "<<< Project", project_path(@project)
+        mb.menu_line "Resource List", project_ressources_path(@project)
+        mb.menu_line "Edit", edit_project_ressource_path(@project,@ressource)
+end%>
+
+
+<%= group_start('Costs per hour') %>
+<%= show_field('Cost (USD)',c(@ressource.cost))%>
+<%= group_end %>
+
+<%= group_start('Budget Groups / Types') %>
+<% BudgetGroup.all.each do |bg| %>
+<%= show_field(bg.group_name, @ressource.budget_types.find_by_budget_group_id(bg.id).nil_or.name) %>
+<%end%>
+<%= group_end %>
+

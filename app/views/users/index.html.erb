@@ -1,0 +1,52 @@
+<% title "Maintain Users" %>
+
+<%= menu_bar do |mb|
+    mb.menu_line "<<< Project", projects_path
+    mb.menu_line "Invite new Teammember (#{current_user.invitation_limit} invites left)", new_invitation_path
+end %>
+
+<br/>
+
+<h2>Current Users in your Organization</h2>
+
+<table>
+  <tr>
+    <th style="text-align:left;">Username</th>
+    <th style="text-align:left;">Email</th>
+    <th>Organization</th>
+    <th>Position</th>
+    <th></th>
+  </tr>
+  <% for user in @users %>
+      <tr>
+        <td style="text-align:left;"><%= h user.username %></td>
+        <td style="text-align:left;"><%= h user.email %></td>
+        <td><%= h user.organization.name %></td>
+        <td><%= 'PM' if user.is_pm %> <%= 'Teammember' unless user.is_pm %> <%= '/ Admin' if user.is_admin %> </td>
+        <th>
+          <%= link_to "Edit", edit_user_path(user.id) %>
+          <% if is_admin? %>
+              | <%= link_to "Delete", user, :confirm => 'Are you sure?', :method => :delete %>
+          <% end %>
+        </th>
+      </tr>
+  <% end %>
+
+<% for invitation in current_user.sent_invitations %>
+      <tr>
+        <td>--</td>
+        <td><%= h invitation.recipient_email %></td>
+        <td>--</td>
+        <td>*Invited*</td>
+        <th>--</th>
+      </tr>
+  <% end %>
+
+
+
+</table>
+
+  <% if is_admin? %>
+               <%= link_to "Create New User", new_user_path %>
+    <% end %>
+

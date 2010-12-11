@@ -1,0 +1,26 @@
+<% title "Welcome to TRACKER - Registration takes less then one minute" %>
+<br/>
+
+<%= show_text("You have been invited by '#{@user.invitation.sender.username} to join his Organization '#{@user.organization.name}' as a Team Member !")%>
+
+<br/>
+
+
+
+<%= semantic_form_for @user,   :url => {:controller => :signup}  do |f_u| %>
+
+<%= error_messages_for 'user' %>
+       <%= f_u.inputs do %>
+        <%= f_u.hidden_field :invitation_token %>
+        <%= f_u.hidden_field :organization_id %>
+        <%= f_u.input :username,:hint => 'No spaces or special characters.', :required => true  %>
+        <%= f_u.input :email,    :hint => 'We will not share your email address !!' , :required => true %>
+        <%= f_u.input :password ,  :required => true %>
+        <%= f_u.input :password_confirmation,  :required => true  %>
+        <%= f_u.commit_button :label => ">>> Sign Up now for free "%>
+    <% end %>
+    <% end %>
+
+
+
+

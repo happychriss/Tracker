@@ -1,0 +1,16 @@
+<div id='info_box_float'>
+<h2>Create a Task</h2>
+  <p>The task will be later estimated by your team. </p>
+
+  <p style="font-weight:bold;color:red">IMPORTANT: If you just play around, create a task with start-date in the past, to have some work to report. The end date should be in the future.</p>
+
+  <% if @project.ressources.count == 0 %>
+      <p>Before creating a task, you need to create resources:  <%= link_to "Create Resources", new_project_ressource_path(@project) %>. </p>
+  <% end %>
+
+  <p>Tasks describe the work to be done. For tasks you can later request estimations from your team.</p>
+
+  <p>Contingency: TRACKER will include contingency in the calculated budget automatically based on the estimation. </p>
+
+  <p>If you select "normal" no contingency will be added, if you select "SIGMA_3" TRACKER will add contingency to make sure your projects finishes in budget within 99% (3 Sigma)</p>
+</div>

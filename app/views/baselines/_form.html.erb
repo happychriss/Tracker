@@ -1,0 +1,83 @@
+<% javascript :defaults, 'delegate' %>
+<% javascript 'nested_items' %>
+<!-- Baseline Form -->
+<br/>
+<div id='info_box_float'>
+      <h2>Request for Estimation</h2>
+  <p>A request for effort estimation will be sent to your team member. If you keep yourself as estimator, you can do the
+    estimation immediately.</p>
+
+  <p>Your Team Member will get an email and will be asked to the estimation.</p>
+
+  <h2>Work Package Definition</h2>
+
+  <p> You need to specify the Work Packages for this task. Your team will do PERT estimation for each Work Package. A
+    Work Package should have an duration of one week.</p>
+
+  <% if @baseline.status!=:new_only_effort %>
+      <h2>Effort Planning</h2>
+
+      <p>If you have defined a start and finish date for this task. Your Team Member will be asked to split the effort
+        calculated over the task duration on a weekly base.</p>
+
+      <p>For each week you can add a comment, e.g. 'Vacation' or 'Test System Available' in the INFO field</p>
+  <% end %>
+
+</div>
+
+<div id='estimation_container'>
+
+  <%= semantic_form_for [@task, @baseline] do |f| %>
+
+
+      <%= f.inputs do %>
+          <%= header_blue "General" %>
+          <%= f.error_messages %>
+
+          <%= f.hidden_field(:eac_hours, :id=>'hours_submit') %>
+
+          <%= f.hidden_field(:state) %>
+
+          <%= f.input :estimator, :label=>'Estimation by', :include_blank => false, :collection => @organization.users.find(:all, :order => 'username') %>
+
+            <%= f.input :pm_comment, :label=> 'Comment for Estimator', :input_html => { :rows => 5}, :required => false %>
+
+
+          <%= header_blue "Workpackages Definition" %>
+
+          <% content_for :jstemplates do -%>
+              <%= "var wp='#{generate_template(f, :wps)}'".html_safe %>
+          <% end -%>
+
+          <div id='wps'>
+            <%= f.fields_for :wps do |wp_form| %>
+                <%= render :partial => 'wp', :locals => {:f => wp_form, :show_for => :pm} %>
+            <% end %>
+          </div>
+
+          <%= link_to 'Add', '#wp', :class => "add_nested_item", :rel => "wps" %>
+
+
+          <%= header_blue "Effort Planning" %>
+
+          <% if @baseline.status==:new_only_effort then %>
+              <%= show_text_yellow("Effort planning not requested !") %>
+          <% else %>
+
+              <%= "Linear Estimation for: #{@task.start} until #{@task.stop} " if @task.estimation_type== 'linear' %>
+
+
+              <div id='works'>
+                <%= render :partial => 'works/form', :locals => {:pf => f, :mode => :pm, :baseline => @baseline} %>
+              </div>
+          <% end %>
+
+          <div style="clear: both;">&nbsp;</div>
+
+
+          <p><%= f.commit_button :label=>'>>> Request Baseline Estimation' %></p>
+
+      <% end %>
+  <% end %>
+</div>
+  <div style="clear: both;">&nbsp;</div>

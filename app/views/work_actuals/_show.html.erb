@@ -1,0 +1,26 @@
+<% work_array=@task.baseline.works %>
+
+<% task.work_actuals.each do |work| %>
+
+    <% if @month.nil? or (not @month.nil? and @month!=work.start_date.month) then %>
+    <div id="line_break">
+      <%= show_text_yellow(Date::MONTHNAMES[work.start_date.month])%>
+    </div>
+    <% end %>
+
+    <% if work.estimation_id == estimation.id then %>
+        <div id='single_work_current'>
+    <% else %>
+        <div id='single_work'>
+    <% end %>
+
+    <%= "#{work.start_date.day}/#{work.start_date.month}" %><br />
+
+    <%= "Actual #{d(work.workhours, 2) or '0'} h" %> / Plan:
+    <%= d(Estimation.corresponding_work(work_array, work.start_date).nil_or.workhours, 2) or "Baseline!" %> h
+    <br/>
+    <%= work.description or '-' %>
+    </div>
+    <% @month=work.start_date.month %>
+
+<% end %>

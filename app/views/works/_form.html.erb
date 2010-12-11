@@ -1,0 +1,46 @@
+<% baseline.works.sort!{|a, b| a.start_date <=> b.start_date} %>
+
+<%= pf.fields_for :works do |fwork| %>
+
+    <% work= fwork.object %>
+
+    <% if @month.nil? or (not @month.nil? and @month!=work.start_date.month) then %>
+        <div id="line_break">
+          <%= show_text_yellow(Date::MONTHNAMES[work.start_date.month]) %>
+        </div>
+    <% end %>
+
+    <div id='single_work'>
+
+      <%= "#{work.start_date.month}/#{work.start_date.day}" %>
+
+      <% if work.baseline_id == baseline.id then %>
+
+          <% if mode == :request then %>
+
+              Plan:<span id='workhours'><%= fwork.text_field :workhours, :size => 2 %></span> h<br/>
+
+              <%= work.description %>
+
+          <% else %>
+              <%= fwork.hidden_field :workhours %> <%= "Actual:#{ work.workhours} h" unless work.workhours.nil? %>
+              <br/>
+              Info: <%= fwork.text_field :description, :size => 10 %>
+          <% end %>
+
+
+          <%= fwork.hidden_field :start_date %>
+          <%= fwork.hidden_field :duration %>
+
+
+      <% else %>
+          Plan:<span id='show_workhours'><%= work.workhours %> </span>h<br/>
+          <%= work.description %>
+
+      <% end %>
+
+    </div>
+
+    <% @month=work.start_date.month %>
+
+<% end %>

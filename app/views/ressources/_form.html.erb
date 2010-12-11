@@ -1,0 +1,35 @@
+            <br/><br/>
+<div id='info_box_float'>
+  <p>Resources are used to determine your project cost and for reporting.</p>
+
+  <p>Please note: Resource shall be abstract, e.g. "Senior Java Programmer. Later you will select people who will do the estimate - this are "real people", are </p>
+
+  <p>Budget Groups are used for reporting. The report can be viewed for every combination of budget groups</p>
+
+</div>
+
+<%= semantic_form_for [@project, @ressource] do |f| %>
+
+    <%= f.inputs do %>
+
+
+        <%= f.input :name, :label=>'Resource name', :input_html => { :size => 20} %>
+
+        <%= f.input :cost, :label => 'Resource Cost (USD per hour)', :input_html => { :size => 5}, :hint=>'Costs will be created as workhours * hourly rate' %>
+
+        <br/>
+        <%= show_text "Budget Groups (used for reporting)" %>
+        <br/>
+        <% BudgetGroup.all.each do |bg| %>
+            <%= select_tag "budget_types[]",
+                           options_for_select(bg.BudgetTypes.collect{ |bt| [bt.name, bt.id] },
+                                              @ressource.budget_types.find_by_budget_group_id(bg.id).nil_or.id) %>
+        <% end %>
+
+            <br/><br/>
+            <%= f.buttons :commit %>
+    <% end %>
+
+
+
+<% end %>

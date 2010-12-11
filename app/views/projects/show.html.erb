@@ -1,0 +1,28 @@
+<% title("Project: '#{@project.name}'")  %>
+
+<%= menu_bar do |mb|
+        mb.menu_line("Maintain Resources", project_ressources_path(@project)) if @project.ressources.count>0
+        mb.menu_line("Create Resources", new_project_ressource_path(@project)) if @project.ressources.count==0
+        mb.menu_line("Create Task", new_project_task_path(@project))
+        mb.menu_line "Reporting", project_reports_path(@project)
+end%>
+
+
+<% if @project.tasks.count==1 and not @project.tasks[0].baseline.nil? and @project.tasks[0].estimations.count==0  %>
+    <div id='info_box'>
+      <p>Your fist tasks is baselined, now you can start tracking!<p>
+       <p>Normally after some work has been done your request a progress estimation from your team.</p>
+      <p>Please select a tasks!</p>
+      </div>
+<%end%>
+
+
+
+<%= render :partial => 'info_box_project' %>
+
+
+<%= render :partial => "tasks/list", :locals => { :tasks =>@project.tasks } unless @project.tasks.blank?%>
+
+
+
+

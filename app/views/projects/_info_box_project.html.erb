@@ -1,0 +1,44 @@
+<% if not @projects.nil? and @projects.count==0 %>
+    <div id='info_box'>
+      <h2>Welcome to TRACKER</h2>
+
+      <p>Create your first project: <%= link_to "New Project", new_project_path %></p>
+
+
+      <% if User.get_team(current_user).count==1 then %>
+          <p style="font-weight:bold">Please note: When your are asked for the "Estimator" and you assign yourself to this role, you will
+            be able to discover TRACKER without involving other team members - so you can play around..</p>
+      <% end %>
+
+
+    </div>
+<% elsif not @project.nil? and @project.ressources.count==0 then %>
+    <div id='info_box'>
+      <p>Now you can define resources that work for your project:
+        <%= link_to "Create Resources", new_project_ressource_path(@project) %><p>
+
+      <p>Resources are doing the work and needed to calculate the budget based on hours * cost per hour !</p>
+    </div>
+<% elsif not @project.nil? and @project.tasks.count==0 %>
+    <div id='info_box'>
+      <p>Create tasks for your resources now: <%= link_to "Create Task", new_project_task_path(@project) %></p>
+
+      <p>Tasks describe the work to be done by a specific resource. For tasks you can later request estimations from your team.</p>
+    </div>
+<% else %>
+
+    <% if not @project.nil? and @project.tasks[0].baseline.nil? then %>
+        <div id='info_box'>
+          <p style="font-weight:bold">Request an estimation, select one of the tasks you created (click on 'Estimate')!<p>
+
+
+          <p>Tip: If you want someone else to do the estimation, you can invite a new team-member via email.
+            They can define a user-name and password and will also be notified via email when you request them to estimate:
+          <%= link_to "Invite Team Members", users_path if current_user.is_pm? %>
+          </p>
+
+
+        </div>
+    <% end %>
+<% end %>
+

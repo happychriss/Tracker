@@ -1,0 +1,9 @@
+<%= menu_bar do |mb|
+        mb.menu_line "<<< Back to My Requests",baseline_requests_path
+        mb.menu_line "Do Baseline Estimation", edit_baseline_request_path(@baseline) if @baseline.estimation_allowed?
+end%>
+
+<%= render :partial => 'baselines/show', :locals => { :baseline => @baseline, :task => @task }  %>
+
+<div style="clear: both;"></div>
+

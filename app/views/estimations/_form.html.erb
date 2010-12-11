@@ -1,0 +1,43 @@
+
+<div id='info_box_float'>
+<h2>Request an Estimation</h2>
+  <p>Once requested the Initial Baseline you want to track the project progress and the work hours spent. After sending this request an email will be sent to the estimator you assigned. Your team member will be asked to estimate the hours spent for each week.</p>
+<p> Based on Earned Value Management and the effort distribution from the Initial Baseline you can determine the project progress and your overall budget - once the request is answered by your team.</p>
+</div>
+
+<div id='estimation_container'>
+
+  <% if @estimation.work_actuals.nitems==0 then %>
+<br/>
+    <%= show_text_yellow('An estimations for the latest time period was already performed!') %>
+<% else %>
+
+  <%= semantic_form_for [@task, @estimation] do |f| %>
+
+      <%= f.error_messages %>
+
+      <%= f.hidden_field(:actual_hours, :id => 'hours_submit') %>
+
+    <%= header "General" %>
+      
+      <%= f.inputs do -%>
+          <%= f.input :estimator, :label=>'Estimation by',  :include_blank => false, :collection => @organization.users.find(:all, :order => 'username') %>
+          <%= f.input :pm_comment, :label=> 'Comment for Estimator', :input_html => { :rows => 5}, :required => false %>
+
+
+      <%= header "Timeframe for Estimation" %>
+     
+
+      <div id='works'>
+        <%= render :partial => 'work_actuals/form', :locals => { :pf => f, :estimation => @estimation, :mode => :pm } %>
+      </div>
+
+      <div style="clear: both;">&nbsp;</div>
+      <p><%= f.commit_button :label=>'>>> Request Estimate !' %></p>
+      <% end %>
+  <% end %>
+
+
+  <div style="clear: both;">&nbsp;</div>
+<%end%>
+</div>

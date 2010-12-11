@@ -1,0 +1,62 @@
+<% javascript 'workadder' %>
+
+<% title "Effort Estimation for task: #{@estimation.task.name}" %>
+
+<div id='info_box_float'>
+<h2>Effort Estimation for your Task</h2>
+  <p> The Project Manager has requeste you to report the progress and effort you have spent on this task!</p>
+  <h2>Work Packages</h2>
+  <p>To report you work progress per work packages, select:</p>
+  <ol>
+    <li>0% - if you have not started working on the Work Package yet    </li>
+    <li>50% - if you are currently working on this packages</li>
+    <li>100% - if the work is completed</li>
+  </ol>
+<h2>Work Hours spent    </h2>
+  <p>For each week you can see the hours you planned to spent (entered in your Baseline Estimation).</p>
+  <p>You now need to report the real hours you spent on this task. The numbers are important as the indicate the overall project progress and the budget needed to finish the project.</p>
+</div>
+
+<div id='estimation_container'>
+
+  <p> <%= header 'Your Comments' %>    <%= @estimation.pm_comment %>  </p>
+
+  <%= semantic_form_for @estimation,  :url => estimation_request_path do |f| %>
+
+      <%= f.error_messages %>
+
+
+      <%= f.inputs do -%>
+          <%= f.input :comment, :label=> 'Comment for PM', :input_html => { :rows => 5}, :required => false %>
+
+
+
+      <% if @estimation_mode==:pert then %>
+
+          <%= header "Work Package Development Status" %>
+
+          <% @estimation.build_wp_actuals %>
+
+          <%= render :partial => 'wp_actuals_form', :locals => { :pf => f, :estimation => @estimation} %>
+
+      <% end %>
+
+       <%= header "Work Hours spent during this period" %>
+      <%= f.hidden_field(:actual_hours, :id=>'hours_submit') %>
+
+      <p>
+        <%= f.label 'Actual hours for this period:' %>
+        <%= content_tag(:span, @estimation.actual_hours, :id=>'eac_hours') %>
+      </p>
+
+
+      <div id='works'>
+        <%= render :partial => 'work_actuals/form', :locals => { :pf => f, :estimation => @estimation, :mode => :request} %>
+      </div>
+      <div style="clear: both;">&nbsp;</div>
+      <p><%= f.commit_button :label => ">>> Submit Feedback" %></p>
+      <% end %>
+  <% end %>
+</div>
+
+<div style="clear: both;"></div>

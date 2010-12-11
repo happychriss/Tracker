@@ -1,0 +1,14 @@
+<% title "Ressourcess" %>
+
+<%= menu_bar do |mb|
+        mb.menu_line "<<< Back to project", project_path(@project)
+        mb.menu_line "New Resource", new_project_ressource_path(@project)
+    end%>
+
+<%=header "Resources assigned to this Project"%>
+
+<%= render :partial => "list", :locals => { :ressources => @ressources }  %>
+ 
+
+
+

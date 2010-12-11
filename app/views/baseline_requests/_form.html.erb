@@ -1,0 +1,122 @@
+<div id='info_box_float'>
+
+  <% if @mode == :step0 or @mode==:step1 then %>
+     <h2>Baseline Estimation</h2>
+      <p> You have been requested to perform a Baseline Estimation for this task. Your Project Manager will use this
+        estimation to determine the Project Budget. It is an important estimation. If you are not sure about the scope
+        of
+        this task, please contact your Project Manager.</p>
+
+      <p>The task is divided into several Work Packages, for each Work Packages you can do three estimations.</p>
+      <ol>
+        <li>Optimistic: Best case, if everything works out without major problems.</li>
+        <li>Likely: If some things go wrong - but everything is pretty normal. This is similar to your normal
+          estimation.
+        </li>
+        <li>Pessimistic: More things go wrong then usually. You shall be pretty your your
+          effort is not above this estimation.
+        </li>
+      </ol>
+
+      <p>All estimates are done in HOURS.</p>
+
+      <p>You can also add a comment for the Project Manager about your estimation (.e.g assumptions).</p>
+  <% else %>
+     <h2>Effort Distribution</h2>
+      <p>For each week where you are scheduled to work on the task you are now asked to estimate the hours of work you
+        plan to spent. The weeks are listed with the start date for each week</p>
+
+      <p>Later when you report your real effort, it will be matched against this estimation.</p>
+
+      <p>The amount of work you need to distribute already contains contingency based on your previous estimation and
+        the project settings.</p>
+
+      <p>If you feel it is not reasonable to do the work during the period, please contact your Project Manager</p>
+  <% end %>
+
+</div>
+
+<div id='estimation_container'>
+
+
+  <%= semantic_form_for @baseline, :url => baseline_request_path do |f| %>
+
+      <%= f.error_messages %>
+
+      <%= f.hidden_field(:eac_hours, :id=>'hours_submit') %>
+
+
+      <% if @mode==:step1 or @mode==:step0 then %>
+
+          <%= group_start('General Information') %>
+          <%= show_field('Project', @baseline.task.project.name) %>
+          <%= show_field('Task', @baseline.task.name) %>
+          <%= show_field('PM Comment', @baseline.pm_comment) %>
+          <%= show_field('Status', @baseline.status_txt) %>
+          <%= show_field('Estimation Type', @baseline.task.estimation_type) %>
+          <%= group_end %>
+
+          <br/>
+
+
+          <%= header "Comment for your Project Manager" %>
+          <%= f.text_area :comment, :rows=>3, :cols =>50 %>
+
+          <div style='display:none'>
+
+            <%= header "Work Distribution" %>
+
+            <%= render :partial => 'works/form', :locals => {:pf => f, :mode => :request, :baseline => @baseline} %>
+          </div>
+
+          <%= header "Work Package Estimation (hours)" %>
+
+          <%= render :partial => 'wp_form', :locals => {:pf => f} %>
+
+          <br/>
+
+          <% if @mode==:step1 %>
+              <%= f.submit 'Next Step >>' %>
+          <% else %>
+              <%= f.submit 'Save' %>
+          <% end %>
+
+      <% else %>
+
+          <%= header "Effort Distribution Planning" %>
+
+          <div id='show_field'>
+            <%= f.label 'Effort to Plan:' %>
+            <%= content_tag(:span, d(@baseline.get_baseline_eac-@baseline.get_works_total_hours, 0), :id=>'remaining_hours', :style => "background:#f1f2f2;font-weight: bold;") %>
+          </div>
+
+          <div id='show_field'>
+            <%= f.label 'Effort already planned:' %>
+            <%= content_tag(:span, @baseline.get_works_total_hours, :id=>'eac_hours') %>
+            <%= " / " %>
+            <%= f.label 'Effort to Complete:' %>
+            <%= content_tag(:span, d(@baseline.get_baseline_eac, 0), :id=>'pert_eac_hours') %>
+          </div>
+
+
+          <div style='display:none'>
+            <%= render :partial => 'wp_form', :locals => {:pf => f} %>
+          </div>
+
+          <div id='works'>
+            <%= render :partial => 'works/form', :locals => {:pf => f, :mode => :request, :baseline => @baseline} %>
+          </div>
+
+          <div id='section_break'></div>
+
+          
+          <%= f.submit '<< Back' %>
+          <%= f.submit 'Finish >>' %>
+
+
+      <% end %>
+
+
+  <% end %>
+</div>
+<div id='section_break'></div>

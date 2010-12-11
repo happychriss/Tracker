@@ -1,0 +1,14 @@
+<% title "Edit Resource" %>
+
+<%= menu_bar do |mb|
+        mb.menu_line "<<< Project", project_path(@project)
+        mb.menu_line "View", project_ressource_path(@project, @ressource)
+end%>
+
+
+
+<%= render :partial => 'form' %>
+
+
+
+  <%= link_to image_tag("/images/delete.png", :border =>0) + "Delete", project_ressource_path(@project,@ressource), :confirm => '!!! Are you sure?!!!!', :method => :delete  if @ressource.tasks.count==0%>  

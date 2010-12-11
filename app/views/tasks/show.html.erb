@@ -1,0 +1,41 @@
+<% title "Task Details" %>
+
+
+<%= menu_bar do |mb|
+    mb.menu_line "<<< Project", project_path(@project)
+    mb.menu_line "<<< Estimation List", task_baselines_path(@task)
+      mb.menu_line "Edit", edit_project_task_path(@project, @task)
+ end%>
+
+<%= group_start('General Information') %>
+<%= show_field('Project', @task.project.name) %>
+<%= show_field('Task', @task.name) %>
+<%= show_field('Description', @task.description) %>
+<%= show_field('Status', @task.status) %>
+<%= group_end %>
+
+<%= group_start('Schedule') %>
+<%= show_field('Startdate', @task.start) %>
+<%= show_field('Enddate', @task.stop) %>
+<%= group_end %>
+
+<%= group_start('Estimation Technique') %>
+<%= show_field('Contingency Method', @task.pm_contingency) %>
+<%= show_field('Estmation Type', @task.estimation_type) %>
+<%= group_end %>
+
+<%= group_start('Resources') %>
+<%= show_field('Resource Name', @task.nil_or.ressource.name) %>
+<%= group_end %>
+
+<%= group_start('Baseline') %>
+<% if @task.latest_baseline.nil? %>
+    <%=show_text "No baseline estimated for this task yet" %>
+<% else %>
+<%= show_field('Baseline Status', @task.latest_baseline.status_txt) %>
+    <%= show_field('EAC (hours)', @task.estimated_baseline.nil_or.eac_hours) %>
+<% end %>
+<%= group_end %>
+
+
+

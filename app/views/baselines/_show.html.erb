@@ -1,0 +1,38 @@
+<!-- Baseline -->
+
+<% title "Baseline" %>
+
+
+
+<%= group_start('General Information') %>
+<%= show_text_yellow 'This is a baseline' %>
+<%= show_field('Baseline Status', baseline.status_txt) %>
+<%= show_field('Task', baseline.task.name) %>
+<%= show_field('Estimation Type', baseline.task.estimation_type) %>
+<%= show_field('Contingency by PM', baseline.task.pm_contingency) %>
+<%= show_field('Last Updated', baseline.updated_at) %>
+<%= show_field('Estimator Name ', baseline.estimator.username+' estimated on '+baseline.estimation_date.to_s) %>
+<%= show_field('PM Comment', baseline.pm_comment) %>
+<%= show_field('Estimator Comment', baseline.comment) %>
+<%= show_field('Resource assigned', baseline.task.ressource.name) %>
+<%= group_end %>
+
+
+<div style="clear: both;"></div>
+
+<%= group_start('Work Package Effort') %>
+<%= show_field("Pert Sigma",d(@baseline.get_baseline_sigma,2)) %>
+<%= show_field('Pert Mean', d(@baseline.get_baseline_eac_mean,2)) %>
+<%= show_field('Pert Pessimistic (EAC)', d(@baseline.get_baseline_eac,2)) %>
+<%= group_end %>
+
+<%= header('Work Package Overview') %>
+<%= render :partial => 'baselines/wp_show', :locals => { :wps => baseline.wps } %>
+
+
+<%= header('Effort Planning & Distribution') %>
+<div id='works'>
+  <%= render :partial => 'works/show', :locals => { :baseline => baseline } %>
+</div>
+
+ <div style='clear:both'></div>

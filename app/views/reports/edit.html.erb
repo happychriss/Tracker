@@ -1,0 +1,8 @@
+<% title "Edit Report" %>
+
+<%= render :partial => 'form' %>
+
+<p>
+  <%= link_to "Show", project_report_path(@project,@report) %> |
+  <%= link_to "View All", project_reports_path(@project) %>
+</p>

@@ -1,0 +1,18 @@
+Description:
+    Generates a controller and helper for making sparklines graphs from a view.
+
+    No arguments are needed.
+
+    The generator creates a controller class in app/controllers and
+    a helper in app/helpers.
+
+    You'll need to create a route:
+    
+      map.resources :sparklines
+
+Example:
+    ./script/generate sparklines
+
+    This will create:
+        Controller: app/controllers/sparklines_controller.rb
+        Helper:     app/helpers/sparklines_helper.rb

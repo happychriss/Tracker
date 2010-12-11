@@ -1,0 +1,27 @@
+<% title "Reports" %>
+
+<%= menu_bar do |mb|
+        mb.menu_line "<<< Project", project_path(@project)
+        mb.menu_line "Create new Report", new_project_report_path(@project)
+                     
+end%>
+
+<%= header "Available Reports"%>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+  </tr>
+  <% for report in @reports %>
+    <tr>
+      <td><%=h report.name %></td>
+      <td>
+      <%= link_to "Run Report", project_report_path(@project,report) %>
+      <%= link_to "Change Name", edit_project_report_path(@project,report) %>
+      <%= link_to "Delete", project_report_path(@project,report), :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+ 

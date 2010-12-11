@@ -1,0 +1,6 @@
+<% javascript 'workadder' %> 
+<% title "Create a new Baseline for Task '#{@task.name}'" %>
+
+<%= render :partial => 'form' %>
+
+<p><%= link_to "Back to List", task_baselines_path(@task) %></p>

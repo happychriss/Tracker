@@ -1,0 +1,29 @@
+<% if wp_actuals.count==0 %>
+   <%= show_text("No Workpackages estimated !") %>
+<%else%>
+
+<table>
+  <tr>
+    <th>WP</th>
+    <th>Optimistic</th>
+    <th>Likely</th>
+    <th>Pessimistic</th>
+    <th>Average</th>
+    <th>Status</th>
+
+  </tr>
+
+
+  <% wp_actuals.each do |wp_actual| %>
+      <tr>
+        <td><%= wp_actual.wp.name %></td>
+        <td><%= wp_actual.wp.o_estimate %></td>
+        <td><%= wp_actual.wp.m_estimate %></td>
+        <td><%= wp_actual.wp.p_estimate %></td>
+        <td><%= d(wp_actual.wp.pert_average,0) %></td>
+        <td><%= wp_actual.status %></td>
+
+      </tr>
+  <% end %>
+</table>
+<% end %>

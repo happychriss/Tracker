@@ -1,0 +1,39 @@
+ActionController::Routing::Routes.draw do |map|
+
+  map.resources :invitations
+  map.resources :signup
+
+  map.resources :organizations
+  map.resources :works
+  map.resources :ressources, :has_many => :tasks, :belongs_to => :project
+  map.resources :estimations, :has_one => [:task,:estimator]
+  map.resources :baselines, :has_one => [:task,:estimator]
+  map.resources :tasks, :has_one => [:project,:ressource], :has_many => [:estimations,:requests, :baselines]
+  map.resources :projects, :has_many => [:tasks, :ressources, :reports], :belongs_to => :organization
+
+  map.resources :users, :belongs_to => :organization
+  map.resources :user_sessions
+
+  map.resources :sparklines
+  map.resources :organizations, :has_many => [:users, :proejcts]
+
+  map.resources :estimator, :has_many => :baseline_requests, :controller => "baseline_requests"
+  map.resources :estimator, :has_many => :estimation_requests, :controller => "estimation_requests"
+
+  map.login "login", :controller => "user_sessions", :action => "new"
+  map.logout "logout", :controller => "user_sessions", :action => "destroy"
+
+
+  map.register "register/:invitation_token", :controller => "signup", :action => "new"
+  map.join "join", :controller => "signup", :action => "new"
+
+  # special handling for the requests controller
+
+  map.resources :baseline_requests, :has_one => [:estimator]
+  map.resources :estimation_requests, :has_one => [:estimator]
+
+  map.root :controller => "user_sessions", :action => "new" # optional, this just sets the root route
+
+map.connect ':controller/:action/:id'
+map.connect ':controller/:action/:id.:format'
+end

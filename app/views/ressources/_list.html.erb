@@ -1,0 +1,13 @@
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Cost</th>
+    <th></th>
+  </tr>
+  <% for ressource in ressources %>
+    <tr>
+       <td><%= link_to ressource.name, project_ressource_path(@project,ressource) %>
+      <td><%= c(ressource.cost) %></td>
+      <td><%= link_to "Edit", edit_project_ressource_path(@project,ressource) %></tr>
+  <% end %>
+</table>

@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+  <title><%= h(yield(:title) || "Untitled") %></title>
+
+  <%= stylesheet_link_tag 'application', 'formtastic', 'formtastic_changes_signup' %>
+  <%= javascript_include_tag 'jquery' %>
+  <%= stylesheet_link_tag 'calendar' %>
+  <%= javascript_include_tag 'calendar' %>
+
+  <%= yield(:head) %>
+
+  <%= javascript_tag do %>
+      <%= yield(:jstemplates) %>
+  <% end -%>
+
+  <% if Rails.env.development? then %>
+      <script type="text/javascript">
+
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-16848313-2']);
+          _gaq.push(['_trackPageview']);
+
+          (function() {
+              var ga = document.createElement('script');
+              ga.type = 'text/javascript';
+              ga.async = true;
+              ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+              var s = document.getElementsByTagName('script')[0];
+              s.parentNode.insertBefore(ga, s);
+          })();
+
+      </script>
+  <% end %>
+
+</head>
+<body>
+
+
+<div id="container">
+
+
+  <div id="header">
+R3
+  </div>
+
+
+  <%- flash.each do |name, msg| -%>
+      <%= content_tag :div, msg, :id => "flash_#{name}" %>
+  <%- end -%>
+  <%- if show_title? -%>
+      <div id='show_field_title'><%= h yield(:title) %></div>
+  <%- end -%>
+  <%= yield %>
+</div>
+</body>
+</html>

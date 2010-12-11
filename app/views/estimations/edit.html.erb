@@ -1,0 +1,14 @@
+<% javascript 'workadder' %> 
+<% title "PM - Request Estimation for Task '#{@estimation.task.name}'" %>
+
+<%= menu_bar do |mb|
+        mb.menu_line "<<< Estimation List", task_baselines_path(@task)
+        mb.menu_line "Show", task_estimation_path(@task,@estimation)
+ end%>
+
+<%= header "Estimation type: #{@estimation.task.estimation_type}" %>
+<%= render :partial => 'form' %>
+
+ <%= link_to image_tag("/images/delete.png", :border =>0) + "Delete", task_estimation_path(@task,@estimation), :confirm => 'Are you sure?', :method => :delete  %>
+
+

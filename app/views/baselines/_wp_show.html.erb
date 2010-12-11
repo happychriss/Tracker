@@ -1,0 +1,18 @@
+<table>
+  <tr>
+    <th>WP</th>
+    <th>Optimistic</th>
+    <th>Likely</th>
+    <th>Pessimistic</th>
+      </tr>
+
+
+  <% wps.each do |wp| %>
+      <tr>
+        <td><%= wp.name %></td>
+        <td><%= wp.o_estimate %></td>
+        <td><%= wp.m_estimate %></td>
+        <td><%= wp.p_estimate %></td>
+          </tr>
+  <% end %>
+</table>

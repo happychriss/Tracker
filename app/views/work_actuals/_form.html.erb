@@ -1,0 +1,52 @@
+<% work_array=@task.baseline.works %>
+
+
+    <%= pf.fields_for :work_actuals do |fwork| %>
+
+        <% work_actual= fwork.object %>
+
+        <% if @month.nil? or (not @month.nil? and @month!=work_actual.start_date.month) then %>
+
+            <div id="line_break">
+              <%= show_text_yellow(Date::MONTHNAMES[work_actual.start_date.month]) %>
+            </div>
+
+
+        <% end %>
+
+        <div id='single_work'>
+
+          <%= "Week of: #{work_actual.start_date.day}/#{work_actual.start_date.month}" %>
+
+          <% if work_actual.estimation_id == estimation.id then %>
+
+              <%= "- Planed: #{Estimation.corresponding_work(work_array, work_actual.start_date).nil_or.workhours} h" %>
+              <br/>
+
+              <% if mode==:request then %>
+
+                  Actual:<span id='workhours'><%= fwork.text_field :workhours, :size => 2 %></span> h <br/>
+                  <%= work_actual.description %>
+
+              <% else %>
+
+                  Comment:<%= fwork.text_field :description, :size => 10, :value => Estimation.corresponding_work(work_array, work_actual.start_date).nil_or.description %>
+
+              <% end %>
+
+              <%= fwork.hidden_field :task_id %>
+              <%= fwork.hidden_field :start_date %>
+              <%= fwork.hidden_field :duration %>
+
+          <% else %>
+              Actual: <span id='show_workhours'> <%= work_actual.workhours %> </span>h<br/>
+              <%= work_actual.description %>
+
+          <% end %>
+
+        </div>
+
+        <% @month=fwork.object.start_date.month %>
+
+    <% end %>
+

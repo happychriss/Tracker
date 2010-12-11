@@ -1,0 +1,8 @@
+<%= menu_bar do |mb|
+        mb.menu_line "<< Back to Estimation List", task_baselines_path(@task)
+        mb.menu_line "Edit", edit_task_baseline_path(@task,@baseline)
+end%>
+
+<%= render :partial => 'show', :locals => { :baseline => @baseline, :task => @task }  %>
+
+

@@ -1,0 +1,26 @@
+<table>
+  <tr>
+    <th style="text-align:left;">WP</th>
+
+    <th>Optimistic</th>
+    <th>Likely</th>
+    <th>Pessimistic</th>
+  </tr>
+  <%= pf.fields_for :wps do |fwp| %>
+      <tr>
+        <td style="text-align:left;">
+          <%= fwp.object.name %>
+        </td>
+        <td>
+          <%= fwp.text_field :o_estimate, :size => 2 %>
+        </td>
+        <td>
+          <%= fwp.text_field :m_estimate, :size => 2 %>
+        </td>
+        <td>
+          <%= fwp.text_field :p_estimate, :size => 2 %>
+        </td>
+  </tr>
+  <% end %>
+
+</table>

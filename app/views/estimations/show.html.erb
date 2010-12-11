@@ -1,0 +1,11 @@
+<%= menu_bar do |mb|
+        mb.menu_line "<< Back to Estimation List", task_baselines_path(@task)
+        mb.menu_line "Edit", edit_task_estimation_path(@task,@estimation)
+end%>
+
+<%= render :partial => 'show', :locals => { :estimation => @estimation, :task => @task }  %>
+
+<div style="clear: both;"> </div>
+
+
+

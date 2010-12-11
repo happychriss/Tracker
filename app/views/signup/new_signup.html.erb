@@ -1,0 +1,40 @@
+<% title "Welcome to TRACKER - Registration takes less then one minute" %>
+<br/>
+<div id='signup_password'>
+<%= semantic_form_for @organization,   :url => {:controller => :signup}  do |f| %>
+
+<%= error_messages_for 'user' %>
+
+    <!-- users/new.html.erb -->
+
+
+    <%= f.inputs :for => :users do |f_u| %>
+        <%= f_u.hidden_field :invitation_token %>
+        <%= f_u.input :username,:hint => 'No spaces or special characters.', :required => true  %>
+        <%= f_u.input :email,    :hint => 'We will not share your email address !!' , :required => true ,   :input_html => { :size => 40 }%>
+        <%= f_u.input :password ,  :required => true %>
+        <%= f_u.input :password_confirmation,  :required => true  %>
+    <% end %>
+
+    <%= f.inputs do %>
+    <%= f.input :name, :label => "Your company name", :hint => 'If left empty, it will be your username.', :required => false %>
+    <%= f.commit_button :label => ">>> Sign Up for free "%>
+    <% end %>
+
+
+<% end %>
+</div>
+
+<div id = 'signup_info'>
+   <p style="font-weight:bold">TRACKER:Project Tracking and Cost Management</p>
+
+
+  <p>TRACKER combines proved Project Management tools like PERT Estimation and Earned Value Management to manage
+    budget uncertainty.</p>
+
+<p>Sign Up for free and set-up your first project in less then 10 minutes !</p>
+<p>More information is available at: <%=link_to "project-tracking.org", "http://project-tracking.org/" %></p>
+</div>
+<div style="clear: both;">&nbsp;</div>
+
+<p>If you already have an account: <%= link_to "Login here!", login_path %></p>

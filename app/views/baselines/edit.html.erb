@@ -1,0 +1,10 @@
+<% javascript 'workadder' %> 
+<% title "PM - Edit Baseline for Task #{@baseline.task.name}" %>
+
+<%= render :partial => 'form' %>
+
+<p>
+  <%= link_to "All Estimates", task_baselines_path(@task)%>
+  <%= link_to "Show", task_baseline_path(@task,@baseline) %>
+  <%= link_to "Destroy", task_baseline_path(@task,@baseline), :confirm => 'Are you sure?', :method => :delete  %>
+</p>

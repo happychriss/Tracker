@@ -1,0 +1,21 @@
+<% title "Report" %>
+
+<p>
+  <strong>Name:</strong>
+  <%= h @report.name %>
+</p>
+<p>
+  <strong>Pm:</strong>
+  <%= h @report.pm_id %>
+</p>
+
+<div id='budget_groups'>
+    <%= render :partial => "update_report", :locals => {:report => @report} %>
+</div>
+
+
+<p>
+  <%= link_to "Edit", edit_design_report_path(@report) %> |
+  <%= link_to "Destroy", design_report_path(@report), :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", design_reports_path %>
+</p>

@@ -1,0 +1,61 @@
+
+<% if @task.baselines.count==0 then %>
+    <div id='info_box'>
+      <p>Request the Baseline Estimation from your team to determine your project budget !</p>
+
+      <% if @task.request_allowed?(:baseline) %>
+          <p>Select: <%= link_to "New Baseline", new_task_baseline_path(@task) %>.
+            You will ask your team members for a PERT estimate and the planning of effort to be spent on a weekly
+            base.</p>
+      <% end %>
+
+
+      <% if @task.request_allowed?(:baseline_only_effort) %>
+          <p>Select: <%= link_to "New Baseline (only Effort)", new_task_baseline_path(@task, :only_effort => "true") %>
+            .
+            You will ask your team members for a PERT estimate and not for the effort distribution over time. You can do
+            this later via "Request Baseline".</p>
+      <% end %>
+    </div>
+<% end %>
+
+<% if @task.request_allowed?(:baseline) and @task.latest_baseline_status==:estimated_only_effort then %>
+    <div id='info_box'>
+      <p>You have requested a baseline without effort distribution. Your team needs to define when the work packages are
+        done and to distribute the effort on a weekly base.</p>
+      <% if @task.start.nil? then %>
+          <p>You need to define a start and finish date for your task. Then you can request a Baseline Estimation with
+            effort distribution. To update the task:
+            <%= link_to edit_project_task_path(@project, @task) %></p>
+      <% else %>
+          <p>Now you need to request a Baseline Estimation including effort distribution:
+            <%= link_to "New Baseline!! ", new_task_baseline_path(@task) if @task.request_allowed?(:baseline) %></p>
+          </div>
+      <% end %>
+<% end %>
+
+
+
+
+<% if @task.wait_for_baseline? or @task.wait_for_estimation? then %>
+    <div id='info_box'>
+<p>The effort estimation for your tasks is now pending and waiting for the estimation !</p>
+
+      <p>If you have assigned yourself as estimator, you can do the estimation by yourself and check
+        at <%= link_to "My Estimations", baseline_requests_path %></p>
+<p>Once you have done the estimation, you should return to the project overview and observe the result !</p>
+
+      <p>If you have asked one of your team members, you need to wait until your team will respond to your request with the estimation. </p>
+
+    </div>
+<% elsif @task.request_allowed?(:estimation) %>
+    <div id='info_box'>
+<p>Congratulation: Now the project tracking starts !<p>
+      <p>Your team is now working on the task, and you want to now the progress and effort spent. Click here to request an estimation:
+        <%= link_to 'New Estimation', new_task_estimation_path(@task) %></p>
+    </div>
+<% end %>
+
+
+
+

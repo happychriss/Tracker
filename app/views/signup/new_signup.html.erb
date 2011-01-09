@@ -12,8 +12,8 @@
         <%= f_u.hidden_field :invitation_token %>
         <%= f_u.input :username,:hint => 'No spaces or special characters.', :required => true  %>
         <%= f_u.input :email,    :hint => 'We will not share your email address !!' , :required => true ,   :input_html => { :size => 40 }%>
-        <%= f_u.input :password ,  :required => true %>
-        <%= f_u.input :password_confirmation,  :required => true  %>
+        <%= f_u.input :password ,  :required => true%>
+        <%= f_u.input :password_confirmation,  :required => true%>
     <% end %>
 
     <%= f.inputs do %>

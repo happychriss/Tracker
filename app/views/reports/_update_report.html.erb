@@ -24,7 +24,7 @@
 
         <li> <%= rl.budget_group.group_name %>
 
-          <%= link_to "[x]", :remote => true, :update => "budget_groups", :url => {
+          <%= link_to_remote "[x]",  :update => "budget_groups", :url => {
                   :action => "delete_report_line",
                   :report_id => report.id,
                   :project_id => project.id,

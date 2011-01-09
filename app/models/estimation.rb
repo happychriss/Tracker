@@ -139,7 +139,7 @@ class Estimation < BaseRequest
 
     logger.info " build_works_for_estimation from #{d1} to #{d2}"
 
-    d1.step(d2, 7) do |date|
+    d1.step(d2, WORK_TIME_FRAME) do |date|
 
       logger.info "Create work task/estimation #{task.id} / #{self.id}"
 

@@ -1,7 +1,7 @@
 <table style='width:100%'>
   <tr>
     <th>#</th>
-    <th></th>
+    <th style="text-align:center;">Action</th>
     <th>Task</th>
     <th>Status</th>
     <th>Start - End</th>
@@ -12,11 +12,16 @@
     <th>Performance</th>
 
   </tr>
+
   <% tasks.each do |task| %>
       <tr>
         <td><%= task.id %></td>
-        <td style="text-align:center;width:20px"> <%= link_to(image_tag("task-button.png", :border=>0), task_baselines_path(task))   %></td>
-        <td> <%= link_to task.name, task_baselines_path(task)%></td>
+        <td style="text-align:center;">
+          <%= link_to 'Track', new_task_estimation_path(task) if (task.request_allowed?(:estimation) and not task.wait_for_estimation?)%>
+          <%= link_to 'Baseline', new_task_estimation_path(task) if (task.request_allowed?(:baseline) and not task.request_allowed?(:estimation) and not task.wait_for_baseline?)%>
+            <%= image_tag("wait.png", :border=>0) if task.pending_status   %>
+        </td>
+        <td> <%= task.name%> <%= link_to "more.." ,task_baselines_path(task) %></td>
         <td><%= task.status  %></td>
         <td><%= short_date(task.start) %> - <%= short_date(task.stop) %></td>
         <td><%= link_to task.ressource.name, project_ressource_path(task.project,task.ressource) %></td>

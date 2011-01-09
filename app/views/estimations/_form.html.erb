@@ -7,7 +7,7 @@
 
 <div id='estimation_container'>
 
-  <% if @estimation.work_actuals.nitems==0 then %>
+  <% if @estimation.work_actuals[0].nil? then %>
 <br/>
     <%= show_text_yellow('An estimations for the latest time period was already performed!') %>
 <% else %>

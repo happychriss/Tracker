@@ -2,6 +2,7 @@
 
 
 <%= menu_bar do |mb|
+    mb.menu_line '<< Project',project_path(@task.project)
     mb.menu_line 'New Estimation', new_task_estimation_path(@task) if @task.request_allowed?(:estimation)
     mb.menu_line "New Baseline", new_task_baseline_path(@task) if @task.request_allowed?(:baseline)
     mb.menu_line "New Baseline (only Effort) !!", new_task_baseline_path(@task, :only_effort => "true") if @task.request_allowed?(:baseline_only_effort)
@@ -12,7 +13,7 @@ end %>
 
 <%= show_text_yellow("This Task does not have a start/end date. The estimation of the work distribution is not possible (only effort). You can also add a start/and date to the task and then request the estimation.") if @task.start.nil? %>
 
-<%= link_to "Back to Project", project_path(@task.project) %> | <%= link_to "Show Task details", project_task_path(@task.project, @task) %>
+<%= link_to "Show Task details", project_task_path(@task.project, @task) %>
 <p></p>
 
 <table>
@@ -33,7 +34,7 @@ end %>
 
       <% for estimation in baseline.estimations %>
           <tr>
-            <td><%= link_to "Estimation", task_estimation_path(@task, estimation) %>
+            <td>Estimation <%= link_to "more...", task_estimation_path(@task, estimation) %>
             <td><%= h estimation.status_txt %></td>
             <td><%= short_date(estimation.created_at) %></td>
             <td><%= short_date(estimation.estimation_date) %></td>
@@ -46,8 +47,9 @@ end %>
       <% end %>
 
       <tr id='baseline'>
-        <td><%= link_to "Baseline", task_baseline_path(@task, baseline) %>
+        <td>Baseline <%= link_to "more...", task_baseline_path(@task, baseline) %>
         <td><%= h baseline.status_txt %></td>
+      
         <td><%= short_date(baseline.created_at) %></td>
         <td><%= short_date(baseline.estimation_date) %></td>
         <td><%= h baseline.estimator.username %></td>

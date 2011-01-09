@@ -6,13 +6,7 @@ class BaselinesController < ApplicationController
   
 
   def new
-    #      @baseline = @task.baseline.clone #to make sure, its a new object
-    @baseline=@task.baselines.new
-    @baseline.estimator=@task.latest_baseline.estimator unless @task.latest_baseline.nil_or.estimator.nil?
-    @baseline.build_new_works
-    @baseline.build_new_wps(@task.latest_baseline)
-    @baseline.request_only_effort if not params[:only_effort].nil?
-
+    @baseline=Baseline.create_with_task(@task,(not params[:only_effort].nil?))
   end
   
   def create
@@ -23,7 +17,7 @@ class BaselinesController < ApplicationController
       @baseline.estimator.notify_estimator(@baseline)
       @baseline.request!
       flash[:notice] = "Successfully created estimation request."
-      redirect_to task_baseline_url(@task,@baseline)
+      redirect_to project_url(@project)
     else
       render :action => 'new'
     end

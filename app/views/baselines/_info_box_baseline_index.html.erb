@@ -50,8 +50,7 @@
     </div>
 <% elsif @task.request_allowed?(:estimation) %>
     <div id='info_box'>
-<p>Congratulation: Now the project tracking starts !<p>
-      <p>Your team is now working on the task, and you want to now the progress and effort spent. Click here to request an estimation:
+      <p>Your team is working on the task, click here to request an estimation:
         <%= link_to 'New Estimation', new_task_estimation_path(@task) %></p>
     </div>
 <% end %>

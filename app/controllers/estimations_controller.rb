@@ -25,7 +25,7 @@ class EstimationsController < ApplicationController
       @estimation.request!
       @estimation.estimator.notify_estimator(@estimation)
       flash[:notice] = "Successfully created estimation request."
-      redirect_to task_estimation_url(@task, @estimation)
+            redirect_to project_url(@task.project)
     else
       render :action => 'new'
     end

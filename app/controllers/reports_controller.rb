@@ -4,7 +4,12 @@ class ReportsController < ApplicationController
   before_filter :cancan_check
 
   def load_project
-    @project = Project.find(params[:project_id])
+    if params[:project_id].nil? then
+    @project = Project.find(params[:url][:project_id])
+    else
+@project = Project.find(params[:project_id])
+    end
+
   end
 
   def index
@@ -54,8 +59,9 @@ class ReportsController < ApplicationController
   ## todo: fix tracker_development.budget_groups_tasks' doesn't exist: describe `budget_groups_tasks` on delete
 
   def delete_report_line
-    @report = Report.find(params[:report_id])
-    rl=@report.report_lines.find_by_id(params[:id].to_i)
+    cparams=clean_params(params)
+    @report = Report.find(cparams[:report_id])
+    rl=@report.report_lines.find_by_id(cparams[:id].to_i)
     rl.remove_from_list
     rl.delete
 
@@ -64,14 +70,24 @@ class ReportsController < ApplicationController
   end
 
   def insert_report_line
-    @report = Report.find(params[:report_id])
-    selected_group=BudgetGroup.find(params[:id].delete('group_'))
+    cparams=clean_params(params)
+    @report = Report.find(cparams[:report_id])
+
+    selected_group=BudgetGroup.find(cparams[:id].delete('group_'))
     @report.report_lines.new(:budget_group => selected_group).save
 
     render :partial => "update_report", :locals => { :report => @report, :project =>@project}
   end
 
   private
+
+   def clean_params(params)
+     if  params[:url].nil? then
+       return params
+     else
+       return params[:url]
+     end
+   end
 
    def cancan_check
      unauthorized! if cannot? :all, @project

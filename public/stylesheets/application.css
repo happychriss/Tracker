@@ -28,7 +28,7 @@ a {
 }
 
 #info_box {
-    background:  url(/images/200px-Information_icon_big.svg.png) no-repeat;
+    background:  url(/images/950px-Information_icon_big.svg.png) no-repeat;
     min-height:75px;
     padding-left:80px;
     padding-right:10px;
@@ -36,7 +36,7 @@ a {
     padding-top:1px;
     margin-top:10px;
     margin-bottom:10px;
-    width:560px;
+    width:850px;
     color:#356aa0;
 
 
@@ -67,17 +67,22 @@ width:300px;
 }
 
 
-#flash_notice, #flash_error {
-    padding: 5px 8px;
-    margin: 10px 0;
-}
 
 #flash_notice {
-    background: url(/images/orange.gif) repeat-x;
+    color:green;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 
+#notifier {
+    padding: 5px 8px;
+    margin: 10px 0;
+    background: url(/images/orange.gif) repeat-x;
 }
 
 #flash_error {
+    padding: 5px 8px;
+    margin: 10px 0;
     background-color: #FCC;
     border: solid 1px #C66;
 }
@@ -134,7 +139,7 @@ background: #333 url(/images/drop_zone.gif) repeat-x;
 
 #signup_password {
      float:left;
-    width:500px;
+    width:600px;
 }
 
 #signup_info {
@@ -312,7 +317,7 @@ www.roscripts.com
 
 table {
     border-collapse: collapse;
-    background: #EFF4FB url(/images/table_header.png) repeat-x;
+    background: #c0d4ea;
     border-left: 1px solid #686868;
     border-right: 1px solid #686868;
     color: #333;
@@ -322,14 +327,14 @@ table {
 
 td {
     border: 1px solid #e5eff8;
-    padding: .3em 1em;
+    padding: .2em 1em;
     text-align: left;
 }
 
 th {
     font-weight: bold;
     border: 1px solid #e5eff8;
-    padding: .3em 1em;
+    padding: .2em 1em;
         text-align: left;
 }
 

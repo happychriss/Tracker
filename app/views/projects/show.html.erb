@@ -10,9 +10,10 @@ end%>
 
 <% if @project.tasks.count==1 and not @project.tasks[0].baseline.nil? and @project.tasks[0].estimations.count==0  %>
     <div id='info_box'>
-      <p>Your fist tasks is baselined, now you can start tracking!<p>
-       <p>Normally after some work has been done your request a progress estimation from your team.</p>
-      <p>Please select a tasks!</p>
+      <p>Your steps: Create Project(OK) -> Create Resources(OK)  -> Create Task(OK) ->  Baseline Project(OK) -> Track Project</p>
+
+       <p>Track Project: Click on the green >>TRACK<<< button on >>MORE<< to track working hours ! </p>
+
       </div>
 <%end%>
 

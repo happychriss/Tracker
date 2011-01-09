@@ -62,9 +62,9 @@ module ApplicationHelper
     def show_negative(value)
       return '' if value==''
       if value.to_f<=0 then
-        "<spawn style='color:green'>-$#{value*-1}</spawn>"
+        "<spawn style='color:green'>-$#{value*-1}</spawn>".html_safe
       else
-        "<spawn style='color:red'>$#{value}</spawn>"
+        "<spawn style='color:red'>$#{value}</spawn>".html_safe
         end
     end
 

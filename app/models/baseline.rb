@@ -24,6 +24,15 @@ class Baseline < BaseRequest
   accepts_nested_attributes_for :wps, :allow_destroy => true, :reject_if => proc { |attrs| attrs.any? { |k, v| v.blank? } }
 
 
+  def self.create_with_task(task,only_effort)
+    baseline=task.baselines.new
+    baseline.estimator=task.latest_baseline.estimator unless task.latest_baseline.nil_or.estimator.nil?
+    baseline.build_new_works
+    baseline.build_new_wps(task.latest_baseline)
+    baseline.request_only_effort if only_effort
+    return baseline
+  end
+
   #overwrite after_initialise
   def init_baseline
 

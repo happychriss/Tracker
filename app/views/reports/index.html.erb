@@ -12,14 +12,17 @@ end%>
   <tr>
     <th>Name</th>
     <th></th>
+        <th></th>
   </tr>
-  <% for report in @reports %>
+  <% for report in @project.reports %>
     <tr>
       <td><%=h report.name %></td>
       <td>
       <%= link_to "Run Report", project_report_path(@project,report) %>
       <%= link_to "Change Name", edit_project_report_path(@project,report) %>
-      <%= link_to "Delete", project_report_path(@project,report), :confirm => 'Are you sure?', :method => :delete %></td>
+      </td>
+      <td><%= button_to "Delete", project_report_path(@project,report), :confirm => 'Are you sure?', :method => :delete %></td>
+
     </tr>
   <% end %>
 </table>

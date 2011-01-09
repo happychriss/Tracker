@@ -16,13 +16,19 @@ class TasksController < ApplicationController
   def new
     @task = @project.tasks.new
 
+
   end
 
   def create
     @task = @project.tasks.new(params[:task])
     if @task.save
       flash[:notice] = "Successfully created task."
-      redirect_to @project
+
+      if  @task.request_allowed?(:baseline)
+        redirect_to new_task_baseline_path(@task)
+      else
+        redirect_to new_task_baseline_path(@task, :only_effort => "true")
+      end
     else
       render :action => 'new'
     end

@@ -25,6 +25,15 @@ class User < ActiveRecord::Base
     return current_user.organization.users.all unless current_user.is_admin?
   end
 
+  def estimation_pending?
+    estimator=self.becomes(Estimator)
+    (estimator.baselines+estimator.estimations).each do |estimation|
+      if estimation.estimation_allowed? then
+        return true
+      end
+    end
+    return false
+  end
 
   def unique_invitation_id
     if not self.invitation_id.nil? then

@@ -1,69 +1,85 @@
 <% title "My Estimations for #{current_user.organization.name}" %>
 
 <% unless current_user.is_pm? %>
-<%= group_start('') %>
-<%= show_field("Organization",current_user.organization.name) %>
-<%= show_field('Project Manager', current_user.invitation.sender.username) unless current_user.invitation.nil?%>
-<%= group_end %>
-<%end%>
+    <%= group_start('') %>
+    <%= show_field("Organization", current_user.organization.name) %>
+    <%= show_field('Project Manager', current_user.invitation.sender.username) unless current_user.invitation.nil? %>
+    <%= group_end %>
+<% end %>
 <br/>
 
 <% @sorted_estimations = BaseRequest.get_sorted_request_list(@estimator.baselines, @estimator.estimations) %>
 
-<% if @sorted_estimations.count==0 and not current_user.is_pm?%>
-<br/>
+<% if @sorted_estimations.count==0 and not current_user.is_pm? %>
+    <br/>
     <div id='info_box'>
       <p>Thank you very much for joining TRACKER !</p>
+
       <p>Once the project is set-up you will be notified via email to perform effort estimations for your projects.</p>
+
       <p>Currently there are no estimations assigned to you !</p>
-</div>
-<%else%>
+    </div>
+<% else %>
     <h2>Estimations assigned to you</h2>
     <table>
-  <tr>
-    <th>#</th>
-    <th style="text-align:left;">Type</th>
-<th style="background:yellow;">ACTION</th>
-    <th style="text-align:left;">Task</th>
-    <th>Status</th>
-    <th>Estimation Date</th>
-    <th>Request Date</th>
+      <tr>
+        <th>#</th>
+        <th style="text-align:left;">Type</th>
+        <th style="background:yellow;">ACTION</th>
+        <th style="text-align:left;">Task</th>
+        <th>Status</th>
+        <th>Estimation Date</th>
+        <th>Request Date</th>
 
-  </tr>
+      </tr>
 
-  <% @sorted_estimations.each do |request| %>
+      <% @sorted_estimations.each do |request| %>
 
-      <% if request.kind_of?(Estimation) then %>
+          <% if request.kind_of?(Estimation) then %>
 
-          <tr>
-            <td><%= "#{request.id} (#{request.baseline.id})"%></td>
-            <td style="text-align:left;"><%= link_to "Estimation(#{request.task.name})", estimation_request_path(request) %></td>
-            <td><%=if request.estimation_allowed? then  link_to "Do Estimate", edit_estimation_request_path(request)  else "-"  end%> </td>
-            <td style="text-align:left;"><%= h request.task.name %></td>
-            <td><%= h request.status_txt %></td>
-            <td><%= short_date(request.estimation_date) %></td>
-            <td><%= short_date(request.created_at) %></td>
-          </tr>
-      <% else %>
+              <tr>
+                <td><%= "#{request.id} (#{request.baseline.id})" %></td>
+                <td style="text-align:left;"><%= link_to "Estimation(#{request.task.name})", estimation_request_path(request) %></td>
+                <td><%= if request.estimation_allowed? then
+                            link_to "Do Estimate", edit_estimation_request_path(request)
+                        else
+                            "-"
+                        end %> </td>
+                <td style="text-align:left;"><%= h request.task.name %></td>
+                <td><%= h request.status_txt %></td>
+                <td><%= short_date(request.estimation_date) %></td>
+                <td><%= short_date(request.created_at) %></td>
+              </tr>
+          <% else %>
 
-          <tr id='baseline'>
-            <td><%= h request.id %></td>
-            <td style="text-align:left;"><%= link_to "Baseline(#{request.task.name})", baseline_request_path(request) %></td>
-            <td><%= if request.estimation_allowed? then link_to "Do Estimate", edit_baseline_request_path(request) else "-" end %></td>
-            <td style="text-align:left;"><%= h request.task.name %></td>
-            <td><%= h request.status_txt %></td>
-            <td><%= short_date(request.estimation_date) %></td>
-            <td><%= short_date(request.created_at) %></td>
+              <tr id='baseline'>
+                <td><%= h request.id %></td>
+                <td style="text-align:left;"><%= link_to "Baseline(#{request.task.name})", baseline_request_path(request) %></td>
+                <td><%= if request.estimation_allowed? then
+                            link_to "Do Estimate", edit_baseline_request_path(request)
+                        else
+                            "-"
+                        end %></td>
+                <td style="text-align:left;"><%= h request.task.name %></td>
+                <td><%= h request.status_txt %></td>
+                <td><%= short_date(request.estimation_date) %></td>
+                <td><%= short_date(request.created_at) %></td>
 
-           </tr>
+              </tr>
+
+          <% end %>
+
 
       <% end %>
+    </table>
+<% end %>
 
+<% if current_user.is_pm? then %>
 
-  <% end %>
-</table>
-<%end%>
-
+    <%= menu_bar do |mb|
+        mb.menu_line "<<< Back to Project Overview", projects_path
+    end %>
+<% end %>
 
 
 

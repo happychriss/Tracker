@@ -1,4 +1,6 @@
 module ApplicationHelper
+
+
   def group_start(text)
       res=" <h2>#{h(text)}</h2><div id='group'>".html_safe
       return res

@@ -1,3 +1,5 @@
+<%= javascript_include_tag :defaults %>
+
 <% title("Project: '#{@project.name}'")  %>
 
 <%= menu_bar do |mb|
@@ -8,22 +10,16 @@
 end%>
 
 
-<% if @project.tasks.count==1 and not @project.tasks[0].baseline.nil? and @project.tasks[0].estimations.count==0  %>
-    <div id='info_box'>
-      <p>Your steps: Create Project(OK) -> Create Resources(OK)  -> Create Task(OK) ->  Baseline Project(OK) -> Track Project</p>
+<% info_box ('projects/info_box_project') %>
 
-       <p>Track Project: Click on the green >>TRACK<<< button on >>MORE<< to track working hours ! </p>
-
-      </div>
-<%end%>
-
-
-
-<%= render :partial => 'info_box_project' %>
-
+  <%= header "Task Summary" %>
 
 <%= render :partial => "tasks/list", :locals => { :tasks =>@project.tasks } unless @project.tasks.blank?%>
 
+  <%= header "Budget Summary" %>
 
+<div id='budget_groups'>
+    <%= render :partial => "reports/update_report", :locals => {:report => @report, :project => @project} %>
+</div>
 
 

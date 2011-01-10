@@ -1,55 +1,6 @@
 
-<%= header "Report Design"%>
 
-<%= show_text("Available Groups") %>
-<div id='group'>
-
-  <ul>
-  <% report.get_not_assigned_groups.each do |bg| %>
-
-      <li id=group_<%= bg.id %>>
-        <span class="handle">[move]  </span><%= bg.group_name %>
-        <%= draggable_element("group_#{bg.id}", :revert=>true, :handle => "'handle'") %>
-      </li>
-  <% end %>
-</ul>
-</div>
-
-
-
-<%= show_text("Groups in Report") %>
-<div id='drop_group_zone'>
-  <ul>
-    <% report.report_lines.each do |rl| %>
-
-        <li> <%= rl.budget_group.group_name %>
-
-          <%= link_to_remote "[x]",  :update => "budget_groups", :url => {
-                  :action => "delete_report_line",
-                  :report_id => report.id,
-                  :project_id => project.id,
-                  :id => rl.id } %>
-        </li>
-
-    <% end %>
-
-    <%= drop_receiving_element('drop_group_zone',
-                               :url => { :action => "insert_report_line",
-                                         :report_id => report.id,
-                                         :project_id => project.id},
-                               :loading => visual_effect(:highlight),
-                               :complete => visual_effect(:fade),
-                               :update => "budget_groups") %>
-
-  </ul>
-  !! DROP HERE !!
-
-</div>
-
-<%= header "Budget Report for Project '#{project.name}'on #{Date.today}"%>
-
-
-<table>
+<table style="width:100%;">
   <tr>
     <% report.report_lines.each do |rl| %>
         <th><%= rl.budget_group.group_name %></th>
@@ -58,7 +9,7 @@
     <th>EAC</th>
     <th>Contingency</th>
     <th>Variance</th>
-        <th>Performance</th>
+    <th>Performance</th>
   </tr>
 
   <% report.get_report_tasks.each do |sum_task| %>
@@ -71,12 +22,56 @@
         <% for i in 1..report.report_lines.count-sum_task.type_list.count do %>
             <td></td>
         <% end %>
-        <td><%= c_short(sum_task.cost(:baseline, :eac))%> </td>
+        <td><%= c_short(sum_task.cost(:baseline, :eac)) %> </td>
         <td><%= c_short(sum_task.cost(:estimation, :eac)) %> </td>
         <td><%= sum_task.cost(:estimation, :contingency) %>%</td>
 
         <td><%= show_negative(sum_task.diff) %></td>
-        <td> <%= render :partial => 'sparklines/sparkline', :locals => { :task =>sum_task } %> </td>
+        <td> <%= render :partial => 'sparklines/sparkline', :locals => {:task =>sum_task} %> </td>
       </tr>
   <% end %>
 </table>
+
+
+  <div style="float:left">
+
+    <ol>
+
+        <% report.get_not_assigned_groups.each do |bg| %>
+      <li>
+            <%= bg.group_name %>
+            <%= link_to_remote "[add to report]", :update => "budget_groups", :url => {
+                    :action     => "insert_report_line",
+                    :controller => 'reports',
+                    :report_id  => report.id,
+                    :project_id => project.id,
+                    :group_id   => bg.id }  %>
+
+            </li>
+        <% end %>
+        </ol>
+  </div>
+
+
+  <div style="float:right">
+    <ol>
+      <% report.report_lines.each do |rl| %>
+
+          <li> <%= rl.budget_group.group_name %>
+
+            <%= link_to_remote "[remove from report]", :update => "budget_groups", :url => {
+                    :action     => "delete_report_line",
+                                        :controller => 'reports',
+                    :report_id  => report.id,
+                    :project_id => project.id,
+                    :id         => rl.id} %>
+          </li>
+
+      <% end %>
+
+
+    </ol>
+
+  </div>
+
+<div style="clear:both"></div>

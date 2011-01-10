@@ -98,7 +98,7 @@ class BaseRequest < ActiveRecord::Base
 
     res[:eac]=(sum_eac_mean+res[:sigma]*3).to_f.round
 
-    res[:contingency] = ((res[:eac]*100)/res[:eac_mean]).to_i-100
+    res[:contingency] = ((res[:eac]*100)/res[:eac_mean]).to_i-100 unless res[:eac_mean]==0
 
     return res
 

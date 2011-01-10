@@ -10,6 +10,7 @@ class ProjectsController < ApplicationController
   end
   
   def show
+  @report=@project.reports.first
   end
   
   def new
@@ -20,10 +21,12 @@ class ProjectsController < ApplicationController
     @project = Project.new(params[:project])
     @project.organization=current_user.organization unless  is_admin?
     @project.pm=current_user.becomes(Pm)
+
     
 #    if @project.user.blank? then @project.user=current_user end
 
     if @project.save
+      @report = @project.reports.create(:name=>'DEFAULT')
       flash[:notice] = "Successfully created project."
       redirect_to @project
     else

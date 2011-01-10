@@ -20,9 +20,8 @@
 
       <p>Tasks describe the work to be done by a specific resource. For tasks you can later request estimations from your team.</p>
     </div>
-<% else %>
 
-    <% if not @project.nil? and @project.tasks[0].baseline.nil? then %>
+<% elsif  not @project.nil? and @project.tasks[0].baseline.nil? then %>
         <div id='info_box'>
 
          <p>Your steps: Create Project(OK) -> Create Resources(OK)  -> Create Task(OK) -> <%= link_to "Baseline Project", baseline_requests_path %> -> Track Project</p>
@@ -33,6 +32,13 @@
 
 
         </div>
-    <% end %>
-<% end %>
 
+<% elsif not @project.nil? and @project.tasks.count==1 and not @project.tasks[0].baseline.nil? and @project.tasks[0].estimations.count==0  %>
+
+    <div id='info_box'>
+      <p>Your steps: Create Project(OK) -> Create Resources(OK)  -> Create Task(OK) ->  Baseline Project(OK) -> Track Project</p>
+
+       <p>Track Project: Click on the TRACK button on >>MORE<< to track working hours ! </p>
+
+      </div>
+<%end%>

@@ -8,8 +8,8 @@
     mb.menu_line "New Baseline (only Effort) !!", new_task_baseline_path(@task, :only_effort => "true") if @task.request_allowed?(:baseline_only_effort)
 end %>
 
-<%= render :partial => 'info_box_baseline_index' %>
 
+<% info_box ('baselines/info_box_baseline_index') %>
 
 <%= show_text_yellow("This Task does not have a start/end date. The estimation of the work distribution is not possible (only effort). You can also add a start/and date to the task and then request the estimation.") if @task.start.nil? %>
 

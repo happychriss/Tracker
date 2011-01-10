@@ -73,7 +73,7 @@ class ReportsController < ApplicationController
     cparams=clean_params(params)
     @report = Report.find(cparams[:report_id])
 
-    selected_group=BudgetGroup.find(cparams[:id].delete('group_'))
+    selected_group=BudgetGroup.find(cparams[:group_id])
     @report.report_lines.new(:budget_group => selected_group).save
 
     render :partial => "update_report", :locals => { :report => @report, :project =>@project}

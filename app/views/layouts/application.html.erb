@@ -105,15 +105,18 @@
       <div id="notifier">You have an estimate assigned to you, click <%= link_to "HERE", baseline_requests_path %> to do the estimation! </div>
 <%end%>
 
+  <%= yield(:info_box) %>
 
   <%- if show_title? -%>
       <div id='show_field_title'><%= yield(:title) %></div>
   <%- end -%>
 
+      <%= yield(:menue) %>
+
 
   <%= yield %>
   <br/>
-    <%= yield(:menue) %>
+
 
 </div>
 

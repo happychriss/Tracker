@@ -10,7 +10,9 @@ end%>
 
 <%= show_text_yellow "Please note: If a Baseline is not estimated yet, baseline estimation will be used as EAC" %>
 
-<div id='budget_groups'>
+  <%= header "Budget Report for Project '#{@project.name}'on #{Date.today}" %>
+
+<div id='budget_groups'>  
     <%= render :partial => "update_report", :locals => {:report => @report, :project => @project} %>
 </div>
 

@@ -28,15 +28,14 @@ a {
 }
 
 #info_box {
-    background:  url(/images/950px-Information_icon_big.svg.png) no-repeat;
-    min-height:75px;
-    padding-left:80px;
-    padding-right:10px;
-    padding-bottom:10px;
-    padding-top:1px;
-    margin-top:10px;
+    background:  url(/images/37px-Information_icon3.svg.png) no-repeat;
+    line-height:50%;
+    padding-left:40px;
+    padding-right:1px;
+    padding-bottom:1px;
+    padding-top:0px;
+    margin-top:1px;
     margin-bottom:10px;
-    width:850px;
     color:#356aa0;
 
 
@@ -110,17 +109,13 @@ width:300px;
     color: #fff;
 }
 
-#group {
-   
+
+#budget_groups {
+width: 600px;
+    background:url(/images/group_blue.gif) repeat-x;
+    margin-top: 3px;
+    margin-bottom: 3px;
 }
-
-
-#drop_group_zone {
-background: #333 url(/images/drop_zone.gif) repeat-x;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
 
 #errorExplanation p {
     color: #333;
@@ -237,11 +232,11 @@ float:left;
 
 #show_field_title {
 
-    font-size: 15px;
+    font-size: 20px;
     margin-top: 25px;
     margin-bottom: 10px;
     font-weight: bold;
-    border-bottom:10px solid #356AA0;
+    border-bottom:15px solid #356AA0;
 }
 
 #show_field_yellow {

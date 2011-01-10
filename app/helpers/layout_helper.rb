@@ -3,6 +3,15 @@
 # to do so you may need to add this line to your ApplicationController
 #   helper :layout
 module LayoutHelper
+
+
+
+  def info_box(partial_name)
+    content_for :info_box do
+      render :partial => partial_name
+    end
+  end
+
   def title(page_title, show_title = true)
     content_for(:title) { page_title }
     @show_title = show_title

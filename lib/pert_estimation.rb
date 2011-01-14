@@ -36,7 +36,7 @@ module PertEstimation
 
   # etc based on open wp and sigma
   def get_etc
-    self.get_mean+3*self.get_sigma
+    self.get_mean+self.task.get_contingency_factor*self.get_sigma
   end
 
 
@@ -65,7 +65,7 @@ module PertEstimation
 
     tmp_sum_variance=0
 
-    if self.task.pm_contingency=='sigma_3' then
+    if self.task.pm_contingency!='normal' then
 
       self.wp_actuals.each do |actual_wp|
         case actual_wp.status

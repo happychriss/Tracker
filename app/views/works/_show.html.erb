@@ -1,3 +1,7 @@
+<%if @baseline.works[0].nil? then %>
+<p>No effort distribution defined for this baseline. This is possible, if it is only an effort only estimation.</p>
+<%end%>
+
 <% baseline.works.each do |works| %>
 
     <% if @month.nil? or (not @month.nil? and @month!=works.start_date.month) then %>

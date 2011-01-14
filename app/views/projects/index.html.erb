@@ -4,7 +4,9 @@
     mb.menu_line "Create new Project", new_project_path
 end %>
 
-<%= render :partial => 'info_box_project' %>
+
+<% info_box ('projects/info_box_project') %>
+
 
 <%= header("Your current Projects") %>
 

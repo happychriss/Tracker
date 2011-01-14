@@ -66,7 +66,7 @@ class BaseRequest < ActiveRecord::Base
   end
 
   def eac_mean_hours
-    self.eac_hours-(3*self.sigma)
+    self.eac_hours-(self.task.get_contingency_factor*self.sigma)
   end
 
   def contingency

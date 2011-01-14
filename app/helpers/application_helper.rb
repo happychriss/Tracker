@@ -25,7 +25,7 @@ module ApplicationHelper
       else
         color=''
       end
-      res = "<div id='show_field_#{cycle('even', 'odd')}' #{color}>"
+      res = "<div id='show_field_even' #{color}>"  ##{cycle('even', 'odd')}
       res += "<div id='label'>#{label_name}:</div>"
       res += "<div id='value'>#{if value.nil? or value.blank? then
         '-'
@@ -98,11 +98,30 @@ module ApplicationHelper
       include ActionView::Helpers::TagHelper
 
       def initialize(&block)
-        @first=true
         @content=''
         @block=block
         yield(self) if block_given?
       end
+
+
+
+      def menu_line(*args, &block)
+        my_content = link_to(*args, :id => "button", &block)
+        if args[0].include? '<<' then
+          @content+="<span id='arrow_frame'>" +my_content+ "</span>"
+        else
+          @content+="<span id='btn_frame'>" + my_content + "</span>"
+        end
+        return nil
+      end
+
+      def html
+        res= "<div id='button_background'>" + @content +"</div>"
+        return res.html_safe
+
+      end
+
+=begin
 
       def menu_line(*args, &block)
         my_content = link_to(*args, &block)
@@ -118,8 +137,8 @@ module ApplicationHelper
       def html
         res="<div id='menu_wrapper' class='grey'> <div id='left' class='grey'></div> <ul id='menu'>"+@content+"</ul></div><div style='clear:left'></div>"
         return res.html_safe
-
       end
+=end
 
     end
 

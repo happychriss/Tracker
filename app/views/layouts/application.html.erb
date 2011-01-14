@@ -100,23 +100,22 @@
       </div>
   <% end %>
 -->
-
+  <br/>
 <%- if current_user and is_pm? and current_user.estimation_pending? and not controller.controller_name.include?('request')then %>
-      <div id="notifier">You have an estimate assigned to you, click <%= link_to "HERE", baseline_requests_path %> to do the estimation! </div>
+      <div id="notifier">You have an estimate assigned to you, click <%= link_to "[Estimate]", baseline_requests_path %> to do the estimation! </div>
 <%end%>
-
-  <%= yield(:info_box) %>
 
   <%- if show_title? -%>
       <div id='show_field_title'><%= yield(:title) %></div>
   <%- end -%>
 
       <%= yield(:menue) %>
-
+  <br/>
 
   <%= yield %>
   <br/>
 
+  <%= yield(:info_box) %>
 
 </div>
 

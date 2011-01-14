@@ -25,7 +25,7 @@ module LinearEstimation
   def get_etc
     self.baseline.eac_hours-self.ev+Math.sqrt(self.get_variance*(1-self.pert_per_complete))
   end
-
+ ## todo: sigma_x
 
   # pert average from all workpackages
   def get_mean
@@ -41,7 +41,7 @@ module LinearEstimation
   def get_variance
     tmp_sum_variance=0
 
-    if self.task.pm_contingency=='sigma_3' then
+    if self.task.pm_contingency!='normal' then
       self.baseline.wps.each do |wp|
         tmp_sum_variance+=wp.pert_variance
       end

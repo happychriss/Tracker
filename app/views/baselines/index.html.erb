@@ -12,10 +12,10 @@ end %>
 <% info_box ('baselines/info_box_baseline_index') %>
 
 <%= show_text_yellow("This Task does not have a start/end date. The estimation of the work distribution is not possible (only effort). You can also add a start/and date to the task and then request the estimation.") if @task.start.nil? %>
-
+<br/>
 <%= link_to "Show Task details", project_task_path(@task.project, @task) %>
 <p></p>
-
+<br/>
 <table>
   <tr>
     <th>Type</th>
@@ -34,7 +34,7 @@ end %>
 
       <% for estimation in baseline.estimations %>
           <tr>
-            <td>Estimation <%= link_to "more...", task_estimation_path(@task, estimation) %>
+            <td>Estimation <%= link_to "[more]", task_estimation_path(@task, estimation) %>
             <td><%= h estimation.status_txt %></td>
             <td><%= short_date(estimation.created_at) %></td>
             <td><%= short_date(estimation.estimation_date) %></td>
@@ -47,7 +47,7 @@ end %>
       <% end %>
 
       <tr id='baseline'>
-        <td>Baseline <%= link_to "more...", task_baseline_path(@task, baseline) %>
+        <td>Baseline <%= link_to "[more]", task_baseline_path(@task, baseline) %>
         <td><%= h baseline.status_txt %></td>
       
         <td><%= short_date(baseline.created_at) %></td>

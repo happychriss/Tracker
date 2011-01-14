@@ -3,7 +3,7 @@ module PertBaseline
 # pessimistic eac
 
   def get_baseline_eac
-    (self.get_baseline_eac_mean+3*self.get_baseline_sigma).round
+    (self.get_baseline_eac_mean+self.task.get_contingency_factor*self.get_baseline_sigma).round
   end
 
   # pert average from all workpackages
@@ -18,17 +18,17 @@ module PertBaseline
   def get_baseline_variance
     tmp_pert_variance_sum=0
 
-    if self.task.pm_contingency=='sigma_3' then
+    if self.task.pm_contingency!='normal' then
 
       self.wps.each do |wp|
         tmp_pert_variance_sum+=wp.pert_variance
       end
 
       return tmp_pert_variance_sum
-    else
+   else
 
-      return 0
-    end
+    return 0
+ end
   end
 
 

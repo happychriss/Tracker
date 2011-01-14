@@ -4,19 +4,19 @@
 
       <p>Just follow the below steps to get your first project running !</p>
 
-      <p>Your steps: <%= link_to "Create Project", new_project_path %> -> Create Resource -> Create Task ->  Baseline Project-> Track Project</p>
+      <p>Your steps: <%= link_to "New Project", new_project_path %> -> New Resource -> New Task ->  Estimate Baseline -> Track Project</p>
 
     </div>
 <% elsif not @project.nil? and @project.ressources.count==0 then %>
     <div id='info_box'>
 
-      <p>Your steps: Create Project(OK) -> <%= link_to "Create Resources", new_project_ressource_path(@project) %>  -> Create Task ->  Baseline Project -> Track Project</p>
+      <p>Your steps: New Project(OK) -> <%= link_to "New Resources", new_project_ressource_path(@project) %>  -> New Task ->  Estimate Baseline -> Track Project</p>
 
       <p>Resources are doing the work and needed to calculate the budget based on hours * cost per hour !</p>
     </div>
 <% elsif not @project.nil? and @project.tasks.count==0 %>
     <div id='info_box'>
-      <p>Your steps: Create Project(OK) -> Create Resources(OK)  -> <%= link_to "Create Task", new_project_task_path(@project) %> ->  Baseline Project -> Track Project</p>
+      <p>Your steps: New Project(OK) -> New Resources(OK)  -> <%= link_to "New Task", new_project_task_path(@project) %> ->  Estimate Baseline -> Track Project</p>
 
       <p>Tasks describe the work to be done by a specific resource. For tasks you can later request estimations from your team.</p>
     </div>
@@ -24,7 +24,7 @@
 <% elsif  not @project.nil? and @project.tasks[0].baseline.nil? then %>
         <div id='info_box'>
 
-         <p>Your steps: Create Project(OK) -> Create Resources(OK)  -> Create Task(OK) -> <%= link_to "Baseline Project", baseline_requests_path %> -> Track Project</p>
+         <p>Your steps: New Project(OK) -> New Resources(OK)  -> New Task(OK) -> <%= link_to "Estimate Baseline", baseline_requests_path %> -> Track Project</p>
 
 
           <p>Tip: With Tracker you can invite a new team-members via email to do the estimation:<%= link_to "Invite Team Members", users_path if current_user.is_pm? %>
@@ -36,7 +36,7 @@
 <% elsif not @project.nil? and @project.tasks.count==1 and not @project.tasks[0].baseline.nil? and @project.tasks[0].estimations.count==0  %>
 
     <div id='info_box'>
-      <p>Your steps: Create Project(OK) -> Create Resources(OK)  -> Create Task(OK) ->  Baseline Project(OK) -> Track Project</p>
+      <p>Your steps: New Project(OK) -> New Resources(OK)  -> New Task(OK) ->  New Project(OK) -> Track Project</p>
 
        <p>Track Project: Click on the TRACK button on >>MORE<< to track working hours ! </p>
 

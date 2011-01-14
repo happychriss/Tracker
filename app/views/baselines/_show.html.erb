@@ -9,7 +9,7 @@
 <%= show_field('Baseline Status', baseline.status_txt) %>
 <%= show_field('Task', baseline.task.name) %>
 <%= show_field('Estimation Type', baseline.task.estimation_type) %>
-<%= show_field('Contingency by PM', baseline.task.pm_contingency) %>
+<%= show_field('Contingency by PM', baseline.task.pm_contingency_txt) %>
 <%= show_field('Last Updated', baseline.updated_at) %>
 <%= show_field('Estimator Name ', baseline.estimator.username+' estimated on '+baseline.estimation_date.to_s) %>
 <%= show_field('PM Comment', baseline.pm_comment) %>

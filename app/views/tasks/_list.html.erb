@@ -1,9 +1,9 @@
 <table style='width:100%'>
   <tr>
     <th>#</th>
-    <th style="text-align:center;">Action</th>
+    <th style="text-align:center; background:#ffb76a;">Action</th>
     <th>Task</th>
-    <th>Status</th>
+    <th>Estimations</th>
     <th>Start - End</th>
     <th>Resource</th>
     <th>Baseline</th>
@@ -17,12 +17,18 @@
       <tr>
         <td><%= task.id %></td>
         <td style="text-align:center;">
-          <%= link_to 'Track', new_task_estimation_path(task) if (task.request_allowed?(:estimation) and not task.wait_for_estimation?)%>
-          <%= link_to 'Baseline', new_task_estimation_path(task) if (task.request_allowed?(:baseline) and not task.request_allowed?(:estimation) and not task.wait_for_baseline?)%>
-            <%= image_tag("wait.png", :border=>0) if task.pending_status   %>
+
+          <% if (task.request_allowed?(:estimation) and not task.wait_for_estimation?) then %>
+          <%= link_to 'Track', new_task_estimation_path(task) %>
+          <%elsif (task.request_allowed?(:baseline) and not task.request_allowed?(:estimation) and not task.wait_for_baseline?)%>
+          <%= link_to 'Baseline', new_task_estimation_path(task) %>
+          <% else %>
+            <%= image_tag("wait.png", :border=>0) %>
+          <%end%>
+
         </td>
-        <td> <%= task.name%> <%= link_to "more.." ,task_baselines_path(task) %></td>
-        <td><%= task.status  %></td>
+        <td> <%= link_to task.name, project_task_path(task.project, task) %></td>
+        <td> <%= link_to task.status  ,task_baselines_path(task) %></td>
         <td><%= short_date(task.start) %> - <%= short_date(task.stop) %></td>
         <td><%= link_to task.ressource.name, project_ressource_path(task.project,task.ressource) %></td>
         <td><%= c_short(task.cost(:baseline,:eac)) %></td>

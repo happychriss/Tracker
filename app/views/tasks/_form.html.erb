@@ -28,7 +28,8 @@
 
         <%= f.input :pm_contingency,
                     :label => 'Contingency',
-                    :as    =>:select, :collection => ['normal', 'sigma_3'], :include_blank => false,
+                    :as    =>:select, :collection => Task.pm_contingency_array,
+                    :include_blank => false,
                     :hint  => 'changing this will only be effective after new baseline is requested' %>
         <%= f.buttons :commit %>
 

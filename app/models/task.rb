@@ -130,6 +130,7 @@ class Task < ActiveRecord::Base
     case request
       when :estimation
         return false if self.baseline.nil? or self.baseline.status!=:estimated
+        return false if not(self.estimation.nil?) and self.estimation.new_work_actuals?
       when :baseline_only_effort
 
       when :baseline

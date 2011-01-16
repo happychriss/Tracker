@@ -6,6 +6,7 @@
 <%= show_field('Estimation Status', estimation.status_txt) %>
 <%= show_field('Task', estimation.task.name) %>
 <%= show_field('Task Estimation Type', estimation.task.estimation_type) %>
+<%= show_field('Contingency Method', estimation.task.pm_contingency_txt) %>
 <%= show_field('Estimator Name ', estimation.estimator.username+' estimated on '+estimation.estimation_date.to_s) %>
 <%= show_field('PM Comment', estimation.pm_comment) %>
 <%= show_field('Resource assigned', estimation.task.ressource.name) %>
@@ -25,10 +26,10 @@
 
 <%= group_start('Earned Value Analysis') %>
 <% if estimation.status!=:requested then %>
-    <%= show_field('EAC (hours)', "#{d(estimation.eac_hours, 2)} Sigma: #{d(estimation.get_sigma, 2)}") %>
-    <%= show_field('% Complete', d(estimation.pert_per_complete*100, 0)) %>
     <%= show_field('EV (hours)', d(estimation.ev, 0)) %>
     <%= show_field('ETC (hours)', d(estimation.get_etc, 0)) %>
+    <%= show_field('EAC (hours)', "#{d(estimation.eac_hours, 2)} Sigma: #{d(estimation.get_sigma, 2)}") %>
+    <%= show_field('% Complete', d(estimation.pert_per_complete*100, 0)) %>
     <%= show_field('CPI', d(estimation.cpi, 2) ) %>
     <%= show_field('PV (hours)', d(estimation.baseline.pv(estimation), 0)) %>
     <%= show_field('Schedule-Dif', d(estimation.schedule_dif, 0) ) %>

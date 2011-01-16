@@ -17,13 +17,14 @@ module LinearEstimation
     return self.baseline.pv(self)
   end
 
+
   def get_eac
     self.get_etc+self.total_actual_hours
   end
 
   # this is special calculation to consider that  for linear task variance reduces over time
   def get_etc
-    self.baseline.eac_hours-self.ev+Math.sqrt(self.get_variance*(1-self.pert_per_complete))
+    self.baseline.eac_hours-self.ev+Math.sqrt(self.get_variance*(1-self.pert_per_complete))*self.task.get_contingency_factor
   end
  ## todo: sigma_x
 

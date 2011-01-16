@@ -3,11 +3,8 @@ class Estimation < BaseRequest
   require 'pert_estimation'
   require 'linear_estimation'
 
-  include PertEstimation
 
   set_table_name "estimations"
-
-  #include EstimationPert
 
   default_scope :order => 'created_at desc'
 
@@ -24,6 +21,7 @@ class Estimation < BaseRequest
 
   # after_create :set_task_id
   before_update :store_estimation_results
+  after_initialize :initialize_and_extend
 
   accepts_nested_attributes_for :work_actuals, :allow_destroy => true
   accepts_nested_attributes_for :wp_actuals, :allow_destroy => true
@@ -40,7 +38,7 @@ class Estimation < BaseRequest
 
   ######################################################
 
-  def self.after_initialize
+  def initialize_and_extend
 #      self.extend EstimationPert
     if new_record?
       self.etc_hours=100 if etc_hours.nil?
@@ -48,7 +46,7 @@ class Estimation < BaseRequest
       self.pm_eac_amount=0 if pm_eac_amount.nil?
       self.actual_hours=0 if actual_hours.nil?
     end
-    self.extent_estimation_type
+    self.extent_estimation_type unless self.task.nil?
 
   end
 
@@ -63,8 +61,10 @@ class Estimation < BaseRequest
   def extent_estimation_type
     case self.task.estimation_type
       when 'pert'
+        logger.info "----------------------- Extended estimation #{self.id} as PERT"
         self.extend PertEstimation
       when 'linear'
+        logger.info "----------------------- Extended estimation #{self.id} as LINEAR"
         self.extend LinearEstimation
 
       else
@@ -125,21 +125,31 @@ class Estimation < BaseRequest
   end
   ############### Handling work_actuals ################################
 
-  def build_new_work_actuals
 
-    lw=self.task.work_actuals.last
+  def new_work_actuals?
+     d_start < d_end
+  end
+
+  def d_start
+      lw=self.task.work_actuals.last
 
     if lw.nil? then
       d1 = Date.last_monday(task.start)
     else
       d1= lw.start_date+lw.duration.days
     end
+  return d1
+  end
 
-    d2 = Date.last_monday(Date.today)
+  def d_end
+    Date.last_monday(Date.today)
+  end
 
-    logger.info " build_works_for_estimation from #{d1} to #{d2}"
+  def build_new_work_actuals
 
-    d1.step(d2, WORK_TIME_FRAME) do |date|
+    logger.info " build_works_for_estimation from #{d_start} to #{d_end}"
+
+    d_start.step(d_end, WORK_TIME_FRAME) do |date|
 
       logger.info "Create work task/estimation #{task.id} / #{self.id}"
 

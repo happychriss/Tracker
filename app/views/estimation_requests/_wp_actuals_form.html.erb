@@ -1,17 +1,21 @@
 <table>
   <tr>
     <th style="text-align:center;">WP</th>
-    <th style="text-align:center;">Not started (0%)</th>
-    <th style="text-align:center;">Ongoing work (50%)</th>
-    <th style="text-align:center;">Completed (100%)</th>
+    <th style="text-align:center;">0%</th>
+    <th style="text-align:center;">25%</th>
+    <th style="text-align:center;">50%</th>
+    <th style="text-align:center;">75%</th>
+    <th style="text-align:center;">100%</th>
   </tr>
 
 <%= pf.fields_for :wp_actuals do |fwp_actual| %>
  <tr style="text-align:center;">
           <td style="text-align:center;"><%= fwp_actual.object.wp.name %> </td>
-          <td style="text-align:center;"><%= fwp_actual.radio_button(:status, :open) %></td>
-          <td style="text-align:center;"><%= fwp_actual.radio_button(:status, :ongoing) %></td>
-          <td style="text-align:center;"><%= fwp_actual.radio_button(:status, :closed) %></td>
+          <td style="text-align:center;"><%= fwp_actual.radio_button(:status, 0) %></td>
+          <td style="text-align:center;"><%= fwp_actual.radio_button(:status, 25) %></td>
+          <td style="text-align:center;"><%= fwp_actual.radio_button(:status, 50) %></td>
+          <td style="text-align:center;"><%= fwp_actual.radio_button(:status, 75) %></td>
+          <td style="text-align:center;"><%= fwp_actual.radio_button(:status, 100) %></td>
           <%= fwp_actual.hidden_field :wp_id %>
 </tr>
 <%end%>

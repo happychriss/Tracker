@@ -9,7 +9,7 @@
     <th>Likely</th>
     <th>Pessimistic</th>
     <th>Average</th>
-    <th>Status</th>
+    <th>% Complete </th>
 
   </tr>
 
@@ -21,7 +21,7 @@
         <td><%= wp_actual.wp.m_estimate %></td>
         <td><%= wp_actual.wp.p_estimate %></td>
         <td><%= d(wp_actual.wp.pert_average,0) %></td>
-        <td><%= wp_actual.status %></td>
+        <td><%= wp_actual.status %> %</td>
 
       </tr>
   <% end %>

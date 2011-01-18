@@ -2,7 +2,7 @@
     <div id='info_box'>
       <h2>Welcome to TRACKER</h2>
 
-      <p>Just follow the below steps to get your first project running !</p>
+      <p>The below steps will guide you from setting-up the project to providing a precises budget forecast based on you team members feedback.!</p>
 
       <p>Your steps: <%= link_to "New Project", new_project_path %> -> New Resource -> New Task ->  Estimate Baseline -> Track Project</p>
 
@@ -10,35 +10,43 @@
 <% elsif not @project.nil? and @project.ressources.count==0 then %>
     <div id='info_box'>
 
+      <p>Create the resources - they are doing the work and are needed to calculate the budget based on hours * cost per hour !</p>
+
       <p>Your steps: New Project(OK) -> <%= link_to "New Resources", new_project_ressource_path(@project) %>  -> New Task ->  Estimate Baseline -> Track Project</p>
 
-      <p>Resources are doing the work and needed to calculate the budget based on hours * cost per hour !</p>
+
     </div>
 <% elsif not @project.nil? and @project.tasks.count==0 %>
     <div id='info_box'>
+
+      <p>Create a Tasks, it describes the work to be done by a specific resource. For tasks you can later request estimations from your team.</p>
+
       <p>Your steps: New Project(OK) -> New Resources(OK)  -> <%= link_to "New Task", new_project_task_path(@project) %> ->  Estimate Baseline -> Track Project</p>
 
-      <p>Tasks describe the work to be done by a specific resource. For tasks you can later request estimations from your team.</p>
+
     </div>
 
 <% elsif  not @project.nil? and @project.tasks[0].baseline.nil? then %>
         <div id='info_box'>
 
+
+        <p style="font-weight:bold"> Your project is ready to request the baseline estimation. This PERT estimation is used to determine your initial project budget. TRACKER will calculate the contingency according to your setting in the task.</p>
+
          <p>Your steps: New Project(OK) -> New Resources(OK)  -> New Task(OK) -> <%= link_to "Estimate Baseline", baseline_requests_path %> -> Track Project</p>
 
-
-          <p>Tip: With Tracker you can invite a new team-members via email to do the estimation:<%= link_to "Invite Team Members", users_path if current_user.is_pm? %>
-          </p>
-
-
+                    <p>Tip: With Tracker you can invite a new team-members via email to do the estimation: <%= link_to "Invite Team Members", users_path if current_user.is_pm? %>    </p>
         </div>
 
 <% elsif not @project.nil? and @project.tasks.count==1 and not @project.tasks[0].baseline.nil? and @project.tasks[0].estimations.count==0  %>
 
     <div id='info_box'>
-      <p>Your steps: New Project(OK) -> New Resources(OK)  -> New Task(OK) ->  New Project(OK) -> Track Project</p>
 
-       <p>Track Project: Click on the TRACK button on >>MORE<< to track working hours ! </p>
+
+                <p style="font-weight:bold">As you can see the Baseline-Budget was calculated. The "Baseline" budget you would request for your project. Now your team would/will start working and you want to track the progress. Your request an estimation from your team and TRACKER will generate a precise budget forecast.</p>
+
+       <p>To start tracking your Project: Click on the TRACK button of a task in the "Task Overview" </p>
+
+      <p>Your steps: New Project(OK) -> New Resources(OK)  -> New Task(OK) ->  New Project(OK) -> Track Project</p>
 
       </div>
 <%end%>

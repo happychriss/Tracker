@@ -1,4 +1,6 @@
-<% title "Organizations" %>
+
+  <%= javascript_include_tag :defaults %>
+  <% title "Organizations" %>
 
 <table>
   <tr>
@@ -9,7 +11,7 @@
       <td><%=h organization.name %></td>
       <td><%= link_to "Show", organization %></td>
       <td><%= link_to "Edit", edit_organization_path(organization) %></td>
-      <td><%= link_to "Destroy", organization, :confirm => '!!!!! Are you sure? All Projects and Users for this Organization will be deleted !!!', :method => :delete %></td>
+      <td><%= button_to "Delete", organization, :confirm => '!!!!! Are you sure? All Projects and Users for this Organization will be deleted !!!', :method => :delete %></td>
     </tr>
   <% end %>
 </table>

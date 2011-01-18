@@ -1,3 +1,4 @@
+  <%= javascript_include_tag :defaults %>
 <% title "Edit Task" %>
 
 
@@ -10,5 +11,5 @@ end%>
 <%= render :partial => 'form' %>
 
 <p>
-   <%= link_to image_tag("/images/delete.png", :border =>0) + "Delete", project_task_path(@project,@task), :confirm => '!!! Are you sure?!!!!', :method => :delete  %>
+   <%= button_to "Delete", project_task_path(@project,@task), :confirm => '!!! Are you sure?!!!!', :method => :delete  %>
 </p>

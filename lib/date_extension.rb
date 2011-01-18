@@ -14,9 +14,9 @@ def self.next_monday(d1)
   
 
 
-#def self.today
-#   new(2010, 12, 20)
-#end
+def self.today
+   new(2011, 02, 10)
+end
 
 
 

@@ -48,7 +48,7 @@
       <p>If you have asked one of your team members, you need to wait until your team will respond to your request with the estimation. </p>
 
     </div>
-<% elsif @task.request_allowed?(:estimation) %>
+<% elsif @task.request_allowed?(:estimation) and @task.open_this_period? %>
     <div id='info_box'>
       <p>Your team is working on the task, click here to request an estimation:
         <%= link_to 'New Estimation', new_task_estimation_path(@task) %></p>

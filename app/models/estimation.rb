@@ -55,6 +55,14 @@ class Estimation < BaseRequest
     errors.add_to_base("Please create baseline first") if self.task.estimated_baseline.nil?
   end
 
+  def start_date
+    self.work_actuals.first.start_date
+  end
+
+  def end_date
+    self.work_actuals.last.start_date
+  end
+
 
   ##### Handling of different estimation types
 
@@ -93,6 +101,10 @@ class Estimation < BaseRequest
     self==self.task.estimation
   end
 
+  def is_latest?
+    self==self.task.estimations.first and not self.task.wait_for_baseline?
+  end
+
   def estimation_allowed?
     self.status==:requested
   end
@@ -126,30 +138,12 @@ class Estimation < BaseRequest
   ############### Handling work_actuals ################################
 
 
-  def new_work_actuals?
-     d_start < d_end
-  end
-
-  def d_start
-      lw=self.task.work_actuals.last
-
-    if lw.nil? then
-      d1 = Date.last_monday(task.start)
-    else
-      d1= lw.start_date+lw.duration.days
-    end
-  return d1
-  end
-
-  def d_end
-    Date.last_monday(Date.today)
-  end
 
   def build_new_work_actuals
 
-    logger.info " build_works_for_estimation from #{d_start} to #{d_end}"
+    logger.info " build_works_for_estimation from #{self.task.d_start} to #{self.task.d_end}"
 
-    d_start.step(d_end, WORK_TIME_FRAME) do |date|
+    self.task.d_start.step(self.task.d_end, WORK_TIME_FRAME) do |date|
 
       logger.info "Create work task/estimation #{task.id} / #{self.id}"
 

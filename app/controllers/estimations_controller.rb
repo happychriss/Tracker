@@ -57,7 +57,7 @@ class EstimationsController < ApplicationController
 
     @estimation.destroy
     flash[:notice] = "Successfully destroyed estimate."
-    redirect_to @task.project
+    redirect_to task_baselines_url(@task)
   end
 
   private

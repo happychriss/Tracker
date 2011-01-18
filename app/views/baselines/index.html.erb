@@ -1,12 +1,13 @@
+  <%= javascript_include_tag :defaults %>
 <% title "Requests for Task: #{@task.name}" %>
-
 
 <%= menu_bar do |mb|
     mb.menu_line '<< Project',project_path(@task.project)
-    mb.menu_line 'New Estimation', new_task_estimation_path(@task) if @task.request_allowed?(:estimation)
+    mb.menu_line 'New Estimation', new_task_estimation_path(@task) if @task.request_allowed?(:estimation) and @task.open_this_period?
     mb.menu_line "New Baseline", new_task_baseline_path(@task) if @task.request_allowed?(:baseline)
     mb.menu_line "New Baseline (only Effort) !!", new_task_baseline_path(@task, :only_effort => "true") if @task.request_allowed?(:baseline_only_effort)
 end %>
+
 
 
 <% info_box ('baselines/info_box_baseline_index') %>
@@ -22,12 +23,13 @@ end %>
     <th>Status</th>
     <th>Requested</th>
     <th>Estimated</th>
+    <th>Period</th>
     <th>Estimator</th>
     <th>EAC<br/>(hours)</th>
     <th>Complete</th>
     <th>Workhours<br/>(plan/curr)</th>
     <th>Contingency</th>
-
+    <th></th>
   </tr>
 
   <% for baseline in @task.baselines %>
@@ -38,11 +40,13 @@ end %>
             <td><%= h estimation.status_txt %></td>
             <td><%= short_date(estimation.created_at) %></td>
             <td><%= short_date(estimation.estimation_date) %></td>
+             <td><%= short_date(estimation.start_date)%> - <%= short_date(estimation.end_date)%></td>
             <td><%= h estimation.estimator.username %></td>
             <td><%= d(estimation.eac_hours, 0) if estimation.is_estimated? %> </td>
             <td><%= d(estimation.pert_per_complete*100, 0)+'%' if estimation.is_estimated? %></td>
             <td><%= "#{estimation.baseline.pv(estimation)} / #{estimation.total_actual_hours}" if estimation.is_estimated? %></td>
             <td><%= "#{d(estimation.contingency, 0)}%" if estimation.is_estimated? %> </td>
+            <td><%= button_to "DELETE!", task_estimation_path(@task,estimation), :confirm => 'Are you sure?', :method => :delete   if estimation.is_latest?    %></td>
           </tr>
       <% end %>
 
@@ -52,11 +56,13 @@ end %>
       
         <td><%= short_date(baseline.created_at) %></td>
         <td><%= short_date(baseline.estimation_date) %></td>
+        <td>-</td>
         <td><%= h baseline.estimator.username %></td>
         <td><%= d(baseline.eac_hours, 0) %></td>
         <td></td>
         <td></td>
         <td><%= "#{d(baseline.contingency, 0)}%" if baseline.is_estimated? %> </td>
+                <td></td>
       </tr>
 
 

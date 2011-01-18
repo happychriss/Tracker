@@ -1,3 +1,4 @@
+  <%= javascript_include_tag :defaults %>
 <% title "Maintain Users" %>
 
 <%= menu_bar do |mb|
@@ -26,7 +27,7 @@ end %>
         <th>
           <%= link_to "Edit", edit_user_path(user.id) %>
           <% if is_admin? %>
-              | <%= link_to "Delete", user, :confirm => 'Are you sure?', :method => :delete %>
+              | <%= button_to "Delete", user, :confirm => 'Are you sure?', :method => :delete %>
           <% end %>
         </th>
       </tr>

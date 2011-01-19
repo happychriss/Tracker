@@ -17,9 +17,8 @@
             this later via "Request Baseline".</p>
       <% end %>
     </div>
-<% end %>
 
-<% if @task.request_allowed?(:baseline) and @task.latest_baseline_status==:estimated_only_effort then %>
+<% elsif @task.baseline.effort_only? then %>
     <div id='info_box'>
       <p>You have requested a baseline without effort distribution. Your team needs to define when the work packages are
         done and to distribute the effort on a weekly base.</p>
@@ -32,29 +31,35 @@
             <%= link_to "New Baseline!! ", new_task_baseline_path(@task) if @task.request_allowed?(:baseline) %></p>
           </div>
       <% end %>
-<% end %>
 
-
-
-
-<% if @task.wait_for_baseline? or @task.wait_for_estimation? then %>
+<% elsif @task.next_step == :wait then %>
     <div id='info_box'>
-<p>The effort estimation for your tasks is now pending and waiting for the estimation !</p>
+      <p>The effort estimation for your tasks is now pending and waiting for the estimation !</p>
 
       <p>If you have assigned yourself as estimator, you can do the estimation by yourself and check
         at <%= link_to "My Estimations", baseline_requests_path %></p>
-<p>Once you have done the estimation, you should return to the project overview and observe the result !</p>
 
-      <p>If you have asked one of your team members, you need to wait until your team will respond to your request with the estimation. </p>
+      <p>Once you have done the estimation, you should return to the project overview and observe the result !</p>
+
+      <p>If you have asked one of your team members, you need to wait until your team will respond to your request with
+        the estimation. </p>
 
     </div>
-<% elsif @task.request_allowed?(:estimation) and @task.open_this_period? %>
+
+<% elsif @task.next_step == :track then %>
     <div id='info_box'>
       <p>Your team is working on the task, click here to request an estimation:
         <%= link_to 'New Estimation', new_task_estimation_path(@task) %></p>
     </div>
-<% end %>
 
+
+<% elsif @task.next_step == :done then %>
+    <div id='info_box'>
+      <p>An estimation for the current time frame was already provided by your team. You can </p>
+      <p>a) Delete the latest estimation and request a new one, e.g. in case of an error.</p>
+      <p>b)Wait until next week and request and updated estimation.</p>
+    </div>
+<% end %>
 
 
 

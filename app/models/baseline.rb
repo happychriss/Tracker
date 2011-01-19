@@ -98,6 +98,10 @@ class Baseline < BaseRequest
     self.status==:requested or self.status==:requested_only_effort
   end
 
+  def effort_only?
+    self.status == :requested_only_effort or self.status == :estimated_only_effort
+  end
+
   ################### works logic #######################################
 
   ## create new works for the baseline

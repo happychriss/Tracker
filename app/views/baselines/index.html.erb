@@ -37,7 +37,7 @@ end %>
       <% for estimation in baseline.estimations %>
           <tr>
             <td>Estimation <%= link_to "[more]", task_estimation_path(@task, estimation) %>
-            <td><%= h estimation.status_txt %></td>
+            <td><%= h estimation.status_txt %> -<%=estimation.baseline.id%> <%=estimation.id%></td>
             <td><%= short_date(estimation.created_at) %></td>
             <td><%= short_date(estimation.estimation_date) %></td>
              <td><%= short_date(estimation.start_date)%> - <%= short_date(estimation.end_date)%></td>
@@ -52,7 +52,7 @@ end %>
 
       <tr id='baseline'>
         <td>Baseline <%= link_to "[more]", task_baseline_path(@task, baseline) %>
-        <td><%= h baseline.status_txt %></td>
+        <td><%= h baseline.status_txt %> - <%=baseline.id%></td>
       
         <td><%= short_date(baseline.created_at) %></td>
         <td><%= short_date(baseline.estimation_date) %></td>

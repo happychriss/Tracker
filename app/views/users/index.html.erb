@@ -17,6 +17,7 @@ end %>
     <th>Organization</th>
     <th>Position</th>
     <th></th>
+    <th></th>
   </tr>
   <% for user in @users %>
       <tr>
@@ -26,10 +27,14 @@ end %>
         <td><%= 'PM' if user.is_pm %> <%= 'Teammember' unless user.is_pm %> <%= '/ Admin' if user.is_admin %> </td>
         <th>
           <%= link_to "Edit", edit_user_path(user.id) %>
+        </th>
+        <th>
           <% if is_admin? %>
-              | <%= button_to "Delete", user, :confirm => 'Are you sure?', :method => :delete %>
+               <%= button_to "Delete", user, :confirm => 'Are you sure?', :method => :delete %>
           <% end %>
         </th>
+
+
       </tr>
   <% end %>
 
@@ -40,6 +45,7 @@ end %>
         <td>--</td>
         <td>*Invited*</td>
         <th>--</th>
+        <th>--</th>        
       </tr>
   <% end %>
 

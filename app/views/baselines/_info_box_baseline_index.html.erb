@@ -18,7 +18,7 @@
       <% end %>
     </div>
 
-<% elsif @task.baseline.effort_only? then %>
+<% elsif not @task.baseline.nil? and @task.baseline.effort_only? then %>
     <div id='info_box'>
       <p>You have requested a baseline without effort distribution. Your team needs to define when the work packages are
         done and to distribute the effort on a weekly base.</p>

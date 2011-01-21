@@ -219,7 +219,7 @@ end
 def status_txt
 
   if not self.wait_for_estimation? then
-    return "Baseline requested (effort)" if self.baseline.effort_only?
+    return "Baseline requested (effort)" if not self.baseline.nil? and self.baseline.effort_only?
     return "Baseline requested" if self.latest_baseline_status ==:requested
 
     return "inactiv" if self.start.nil? or self.start > Date.today

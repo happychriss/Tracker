@@ -11,6 +11,7 @@ class ProjectsController < ApplicationController
   
   def show
   @report=@project.reports.first
+  @report=@project.reports.create(:name=>'DEFAULT') if @report.nil? ## todo remove, only for migrating the old database 19.1.11 
   end
   
   def new

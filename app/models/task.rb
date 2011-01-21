@@ -142,7 +142,7 @@ def request_allowed?(request)
   case request
     when :estimation
 
-      return false if (self.baseline.nil? or self.wait_for_baseline? or self.baseline.effort_only?)
+      return false if (self.baseline.nil? or self.wait_for_baseline? or self.baseline_effort_only?)
 
       return true if self.estimation.nil? or self.estimation.status==:estimated
 
@@ -204,6 +204,10 @@ def wait_for_baseline?
 
 end
 
+  def baseline_effort_only?
+    self.latest_baseline_status ==:requested_only_effort or self.latest_baseline_status==:estimated_only_effort
+  end
+
 
 ### Output in views
 
@@ -219,7 +223,7 @@ end
 def status_txt
 
   if not self.wait_for_estimation? then
-    return "Baseline requested (effort)" if not self.baseline.nil? and self.baseline.effort_only?
+    return "Baseline requested (effort)" if not self.baseline.nil? and self.baseline_effort_only?
     return "Baseline requested" if self.latest_baseline_status ==:requested
 
     return "inactiv" if self.start.nil? or self.start > Date.today
@@ -227,7 +231,8 @@ def status_txt
 
     return "Baseline: estimated" if self.latest_baseline_status ==:estimated and self.estimation.nil?
   end
-  return "Estimation:  #{self.estimations.first.status.to_s}"
+  return "Estimation:  #{self.estimations.first.status.to_s}" unless self.estimations.first.nil?
+  return "-"
 
 end
 

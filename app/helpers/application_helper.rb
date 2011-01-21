@@ -104,7 +104,7 @@ module ApplicationHelper
       end
 
 
-
+# create menu line
       def menu_line(*args, &block)
         my_content = link_to(*args, :id => "button", &block)
         if args[0].include? '<<' then

@@ -43,13 +43,13 @@ class User < ActiveRecord::Base
 
   def notify_teammember(pm)
     reset_perishable_token!
-    Notifier.invitation(self, pm)
+    Notifier.invitation(self, pm).deliver
   end
 
 
   def notify_estimator(request)
     reset_perishable_token!
-    Notifier.estimation_request(self, request)
+    Notifier.estimation_request(self, request).deliver
   end
 
 

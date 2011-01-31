@@ -77,14 +77,17 @@
           <li><%= link_to "Register", new_user_path %>|<%= link_to "Login", login_path %></li>
       <% end %>
 
+
+
       <li style="float:right">
+
         <% if current_user %>
         <%= link_to "LOGOUT #{current_user.username}", logout_path  -%>
          <%else%>
         <%= link_to "LOGOUT", logout_path  -%>
             </li>
       <% end %>
-
+                <li style="float:right;background:green"><%= link_to "Report a Problem","https://github.com/happychriss/Tracker/issues" %>
     </ul>
 
 

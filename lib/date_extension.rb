@@ -14,13 +14,13 @@ def self.next_monday(d1)
   
 
 
-def self.today
-  if Rails.env.development? and true
-   new(2011, 02, 10)
-     else
-    super
-    end
- end
+#def self.today
+#  if Rails.env.development? and true
+#   new(2011, 02, 10)
+#     else
+#    super.today
+#    end
+# end
 
 
 

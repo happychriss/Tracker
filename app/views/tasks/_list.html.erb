@@ -1,8 +1,10 @@
-<table style='width:100%'>
+
+<table style='width:100%' class ='display' id='example'>
+<thead>
   <tr>
     <th>#</th>
     <th style="text-align:center; background:yellow;">Action</th>
-    <th>Task</th>
+    <th class="sorting">Task</th>
     <th>Estimations</th>
     <th>Start - End</th>
     <th>Resource</th>
@@ -12,7 +14,8 @@
     <th>Performance</th>
 
   </tr>
-
+</thead>
+<tbody>
   <% tasks.each do |task| %>
       <tr>
         <td><%= task.id %></td>
@@ -40,4 +43,6 @@
 
       </tr>
   <% end %>
+  </tbody>
 </table>
+

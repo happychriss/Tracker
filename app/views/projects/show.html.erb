@@ -1,4 +1,10 @@
-<%= javascript_include_tag :defaults %>
+
+<%= javascript 'jquery' %>
+<%= javascript 'jquery.dataTables' %>
+<%= javascript 'data_table_task' %>
+
+
+
 
 <% title("Project: '#{@project.name}'")  %>
 
@@ -14,11 +20,20 @@ end%>
 
 <% if not @project.tasks[0].nil? %>
 
-  <%= header "Task Overview" %>
+<br/>
+
+<div style="float:left;font-size:large;font-weight:bold;color:#333333;">
+
+  Task Overview
+</div>   
 
 <%= render :partial => "tasks/list", :locals => { :tasks =>@project.tasks } unless @project.tasks.blank?%>
   <br/>
+
+<%= javascript_include_tag 'prototype' %>
+
   <%= header "Budget Overview" %>
+
 
 <div id='budget_groups'>
     <%= render :partial => "reports/update_report", :locals => {:report => @report, :project => @project} %>

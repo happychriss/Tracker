@@ -1,23 +1,23 @@
-<table>
+<table style="width:600px">
   <tr>
-    <th style="text-align:left;">WP</th>
+    <th style="text-align:left;">Workpackage</th>
 
-    <th>Optimistic</th>
-    <th>Likely</th>
-    <th>Pessimistic</th>
+    <th style="text-align:center;">Optimistic</th>
+    <th style="text-align:center;">Likely</th>
+    <th style="text-align:center;">Pessimistic</th>
   </tr>
   <%= pf.fields_for :wps do |fwp| %>
       <tr>
         <td style="text-align:left;">
           <%= fwp.object.name %>
         </td>
-        <td>
+        <td style="text-align:center;">
           <%= fwp.text_field :o_estimate, :size => 2 %>
         </td>
-        <td>
+        <td style="text-align:center;">
           <%= fwp.text_field :m_estimate, :size => 2 %>
         </td>
-        <td>
+        <td style="text-align:center;">
           <%= fwp.text_field :p_estimate, :size => 2 %>
         </td>
   </tr>

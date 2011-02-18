@@ -1,4 +1,4 @@
-  <%= javascript_include_tag :defaults %>
+
 <% title "Requests for Task: #{@task.name}" %>
 
 <%= menu_bar do |mb|
@@ -37,7 +37,7 @@ end %>
       <% for estimation in baseline.estimations %>
           <tr>
             <td>Estimation <%= link_to "[more]", task_estimation_path(@task, estimation) %>
-            <td><%= h estimation.status_txt %> -<%=estimation.baseline.id%> </td>
+            <td><%= h estimation.status_txt %> </td>
             <td><%= short_date(estimation.created_at) %></td>
             <td><%= short_date(estimation.estimation_date) %></td>
              <td><%= short_date(estimation.start_date)%> - <%= short_date(estimation.end_date)%></td>

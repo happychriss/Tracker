@@ -115,7 +115,7 @@ width:300px;
 
 
 #budget_groups {
-width: 600px;
+width: 800px;
     background:url(/images/group_blue.gif) repeat-x;
     margin-top: 3px;
     margin-bottom: 3px;
@@ -365,8 +365,7 @@ table a:hover {
 ----------------------------------------------- */
 
 thead th, tfoot th, tfoot td {
-    background: #333 url(/images/table_lines.gif) repeat-x;
-    color: #fff
+
 }
 
 tfoot td {
@@ -394,6 +393,7 @@ tbody th a {
 tbody tr:hover {
     background: #fafafa
 }
+
 
 /* =links
 ----------------------------------------------- */

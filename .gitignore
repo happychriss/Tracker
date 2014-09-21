@@ -1,5 +1,5 @@
 .bundle
-.idea/workspace.xml
+.idea/
 .idea/tasks.xml
 db/*.sqlite3
 log/*.log
@@ -8,3 +8,5 @@ config/database.yml
 db/*.sqlite3
 doc/api
 doc/app
+_20110510_2233.sql
+Gemfile.lock
